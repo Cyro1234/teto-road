@@ -1,0 +1,299 @@
+[gd_scene format=3 uid="uid://bthodmqi0k1h1"]
+
+[ext_resource type="Script" uid="uid://cscnmqne5fp8h" path="res://input.gd" id="1_7n6eb"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_1786k"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7n6eb"]
+albedo_color = Color(0.12649995, 0.75, 0.10499999, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2vsai"]
+albedo_color = Color(0.14117648, 0.85490197, 0.11764706, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yb1ct"]
+albedo_color = Color(0.1494, 0.18, 0.18, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cgksj"]
+albedo_color = Color(0.23137255, 0.2784314, 0.2784314, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ehuit"]
+albedo_color = Color(0.47879997, 0.72562003, 0.84, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5mrt3"]
+albedo_color = Color(0.5372549, 0.8117647, 0.9411765, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cgksj"]
+lightmap_size_hint = Vector2i(14, 21)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rwowx"]
+
+[node name="Node3D" type="Node3D" unique_id=1596024861]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=707879202]
+
+[node name="grama-3" type="Node3D" parent="." unique_id=357484722]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+
+[node name="esquerda" type="MeshInstance3D" parent="grama-3" unique_id=1727647836]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, 9, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_7n6eb")
+
+[node name="grama0" type="MeshInstance3D" parent="grama-3" unique_id=436870428]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_2vsai")
+
+[node name="direita" type="MeshInstance3D" parent="grama-3" unique_id=42343099]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, -9, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_7n6eb")
+
+[node name="grama-2" type="Node3D" parent="." unique_id=2008061312]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
+
+[node name="esquerda" type="MeshInstance3D" parent="grama-2" unique_id=1452831268]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, 9, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_7n6eb")
+
+[node name="grama0" type="MeshInstance3D" parent="grama-2" unique_id=1053829061]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_2vsai")
+
+[node name="direita" type="MeshInstance3D" parent="grama-2" unique_id=1658405132]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, -9, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_7n6eb")
+
+[node name="grama-1" type="Node3D" parent="." unique_id=24797487]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="esquerda" type="MeshInstance3D" parent="grama-1" unique_id=1723157075]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, 9, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_7n6eb")
+
+[node name="grama0" type="MeshInstance3D" parent="grama-1" unique_id=857547335]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_2vsai")
+
+[node name="direita" type="MeshInstance3D" parent="grama-1" unique_id=713657961]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, -9, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_7n6eb")
+
+[node name="grama0" type="Node3D" parent="." unique_id=327159856]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+
+[node name="esquerda" type="MeshInstance3D" parent="grama0" unique_id=1350188377]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, 9, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_7n6eb")
+
+[node name="grama0" type="MeshInstance3D" parent="grama0" unique_id=1122821993]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_2vsai")
+
+[node name="direita" type="MeshInstance3D" parent="grama0" unique_id=1122134094]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, -9, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_7n6eb")
+
+[node name="grama1" type="Node3D" parent="." unique_id=1496281316]
+
+[node name="esquerda" type="MeshInstance3D" parent="grama1" unique_id=1371178228]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, 9, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_7n6eb")
+
+[node name="grama0" type="MeshInstance3D" parent="grama1" unique_id=1843500689]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_2vsai")
+
+[node name="direita" type="MeshInstance3D" parent="grama1" unique_id=1198296458]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, -9, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_7n6eb")
+
+[node name="grama2" type="Node3D" parent="." unique_id=980694571]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="esquerda" type="MeshInstance3D" parent="grama2" unique_id=1480053347]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, 9, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_7n6eb")
+
+[node name="grama0" type="MeshInstance3D" parent="grama2" unique_id=671825327]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_2vsai")
+
+[node name="direita" type="MeshInstance3D" parent="grama2" unique_id=547946016]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, -9, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_7n6eb")
+
+[node name="rua" type="Node3D" parent="." unique_id=1414527918]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+
+[node name="esquerda" type="MeshInstance3D" parent="rua" unique_id=644737976]
+transform = Transform3D(9, 0, 0, 0, 0.2, 0, 0, 0, 1, 9, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_yb1ct")
+
+[node name="centro" type="MeshInstance3D" parent="rua" unique_id=274174062]
+transform = Transform3D(9, 0, 0, 0, 0.2, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_cgksj")
+
+[node name="direita" type="MeshInstance3D" parent="rua" unique_id=784136740]
+transform = Transform3D(9, 0, 0, 0, 0.2, 0, 0, 0, 1, -9, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_yb1ct")
+
+[node name="grama3" type="Node3D" parent="." unique_id=456343460]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
+
+[node name="esquerda" type="MeshInstance3D" parent="grama3" unique_id=345210529]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, 9, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_7n6eb")
+
+[node name="grama0" type="MeshInstance3D" parent="grama3" unique_id=156821472]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_2vsai")
+
+[node name="direita" type="MeshInstance3D" parent="grama3" unique_id=669859849]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, -9, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_7n6eb")
+
+[node name="rio" type="Node3D" parent="." unique_id=1213174968]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
+
+[node name="esquerda" type="MeshInstance3D" parent="rio" unique_id=1867243385]
+transform = Transform3D(9, 0, 0, 0, 0.1, 0, 0, 0, 1, 9, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_ehuit")
+
+[node name="centro" type="MeshInstance3D" parent="rio" unique_id=541912063]
+transform = Transform3D(9, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_5mrt3")
+
+[node name="direita" type="MeshInstance3D" parent="rio" unique_id=905356690]
+transform = Transform3D(9, 0, 0, 0, 0.1, 0, 0, 0, 1, -9, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_ehuit")
+
+[node name="grama4" type="Node3D" parent="." unique_id=1067218340]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
+
+[node name="esquerda" type="MeshInstance3D" parent="grama4" unique_id=1734462339]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, 9, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_7n6eb")
+
+[node name="grama0" type="MeshInstance3D" parent="grama4" unique_id=687801614]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_2vsai")
+
+[node name="direita" type="MeshInstance3D" parent="grama4" unique_id=509502850]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, -9, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_7n6eb")
+
+[node name="grama5" type="Node3D" parent="." unique_id=772300229]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
+
+[node name="esquerda" type="MeshInstance3D" parent="grama5" unique_id=1340293041]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, 9, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_7n6eb")
+
+[node name="grama0" type="MeshInstance3D" parent="grama5" unique_id=278125070]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_2vsai")
+
+[node name="direita" type="MeshInstance3D" parent="grama5" unique_id=1100311522]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, -9, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_7n6eb")
+
+[node name="grama6" type="Node3D" parent="." unique_id=2097707021]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7)
+
+[node name="esquerda" type="MeshInstance3D" parent="grama6" unique_id=2106806415]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, 9, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_7n6eb")
+
+[node name="grama0" type="MeshInstance3D" parent="grama6" unique_id=1959560713]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_2vsai")
+
+[node name="direita" type="MeshInstance3D" parent="grama6" unique_id=644141741]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, -9, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_7n6eb")
+
+[node name="grama7" type="Node3D" parent="." unique_id=275562242]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8)
+
+[node name="esquerda" type="MeshInstance3D" parent="grama7" unique_id=1020158204]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, 9, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_7n6eb")
+
+[node name="grama0" type="MeshInstance3D" parent="grama7" unique_id=894004573]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_2vsai")
+
+[node name="direita" type="MeshInstance3D" parent="grama7" unique_id=230608651]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, -9, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_7n6eb")
+
+[node name="grama8" type="Node3D" parent="." unique_id=244886226]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9)
+
+[node name="esquerda" type="MeshInstance3D" parent="grama8" unique_id=1006679655]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, 9, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_7n6eb")
+
+[node name="grama0" type="MeshInstance3D" parent="grama8" unique_id=246196407]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_2vsai")
+
+[node name="direita" type="MeshInstance3D" parent="grama8" unique_id=1949354391]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, -9, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_7n6eb")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=1775318193]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+script = ExtResource("1_7n6eb")
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D" unique_id=1144461222]
+transform = Transform3D(0.98977625, -0.10085389, 0.10085388, 0, 0.70710677, 0.7071068, -0.14262894, -0.6998775, 0.69987744, 1.23, 7.6860003, 5.86)
+projection = 1
+size = 7.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D" unique_id=437124802]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_cgksj")
+surface_material_override/0 = SubResource("StandardMaterial3D_rwowx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D" unique_id=1904106762]
