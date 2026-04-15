@@ -1,11 +1,27 @@
 [gd_scene format=3 uid="uid://bthodmqi0k1h1"]
 
 [ext_resource type="Script" uid="uid://cscnmqne5fp8h" path="res://input.gd" id="1_7n6eb"]
+[ext_resource type="Script" uid="uid://brhmppi6j3u3a" path="res://camera_3d.gd" id="1_yb1ct"]
+[ext_resource type="PackedScene" uid="uid://tiscfxms73nr" path="res://carro.tscn" id="2_5mrt3"]
+[ext_resource type="Script" uid="uid://dfhdds8n1ayon" path="res://path_follow_3d.gd" id="2_rwowx"]
+[ext_resource type="ArrayMesh" uid="uid://cq0umd2grveis" path="res://teto.vox" id="3_ehuit"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_1786k"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7n6eb"]
 albedo_color = Color(0.12649995, 0.75, 0.10499999, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hu44a"]
+albedo_color = Color(0.1254902, 0.7490196, 0.105882354, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0cr88"]
+albedo_color = Color(0.1254902, 0.7490196, 0.105882354, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4t6hg"]
+albedo_color = Color(0.1254902, 0.7490196, 0.105882354, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7vrqn"]
+albedo_color = Color(0.1254902, 0.7490196, 0.105882354, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2vsai"]
 albedo_color = Color(0.14117648, 0.85490197, 0.11764706, 1)
@@ -15,6 +31,13 @@ albedo_color = Color(0.1494, 0.18, 0.18, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cgksj"]
 albedo_color = Color(0.23137255, 0.2784314, 0.2784314, 1)
+
+[sub_resource type="Curve3D" id="Curve3D_ehuit"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 26, 0, 0),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ehuit"]
 albedo_color = Color(0.47879997, 0.72562003, 0.84, 1)
@@ -27,9 +50,91 @@ lightmap_size_hint = Vector2i(14, 21)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rwowx"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_rwowx"]
+
 [node name="Node3D" type="Node3D" unique_id=1596024861]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=707879202]
+transform = Transform3D(0.9902681, -0.098410256, 0.098410256, 0, 0.7071068, 0.7071068, -0.13917312, -0.7002253, 0.7002253, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1144461222 node_paths=PackedStringArray("target")]
+transform = Transform3D(0.9902681, -0.098410256, 0.098410256, 0, 0.7071068, 0.7071068, -0.13917312, -0.7002253, 0.7002253, 1.23, 7.886, 5.86)
+projection = 1
+size = 7.0
+script = ExtResource("1_yb1ct")
+target = NodePath("../Player")
+
+[node name="grama-7" type="Node3D" parent="." unique_id=1183076265]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
+
+[node name="esquerda" type="MeshInstance3D" parent="grama-7" unique_id=1108190253]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, 9, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_7n6eb")
+
+[node name="grama0" type="MeshInstance3D" parent="grama-7" unique_id=1861669901]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_hu44a")
+
+[node name="direita" type="MeshInstance3D" parent="grama-7" unique_id=60860093]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, -9, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_7n6eb")
+
+[node name="grama-6" type="Node3D" parent="." unique_id=1048373865]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7)
+
+[node name="esquerda" type="MeshInstance3D" parent="grama-6" unique_id=1948140307]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, 9, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_7n6eb")
+
+[node name="grama0" type="MeshInstance3D" parent="grama-6" unique_id=1255297699]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_0cr88")
+
+[node name="direita" type="MeshInstance3D" parent="grama-6" unique_id=1188066999]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, -9, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_7n6eb")
+
+[node name="grama-5" type="Node3D" parent="." unique_id=1719133962]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
+
+[node name="esquerda" type="MeshInstance3D" parent="grama-5" unique_id=289687190]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, 9, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_7n6eb")
+
+[node name="grama0" type="MeshInstance3D" parent="grama-5" unique_id=1025961938]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_4t6hg")
+
+[node name="direita" type="MeshInstance3D" parent="grama-5" unique_id=242703448]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, -9, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_7n6eb")
+
+[node name="grama-4" type="Node3D" parent="." unique_id=555237419]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
+
+[node name="esquerda" type="MeshInstance3D" parent="grama-4" unique_id=1953807447]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, 9, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_7n6eb")
+
+[node name="grama0" type="MeshInstance3D" parent="grama-4" unique_id=787457029]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_7vrqn")
+
+[node name="direita" type="MeshInstance3D" parent="grama-4" unique_id=1197985083]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, -9, 0, 0)
+mesh = SubResource("BoxMesh_1786k")
+surface_material_override/0 = SubResource("StandardMaterial3D_7n6eb")
 
 [node name="grama-3" type="Node3D" parent="." unique_id=357484722]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
@@ -155,6 +260,18 @@ surface_material_override/0 = SubResource("StandardMaterial3D_cgksj")
 transform = Transform3D(9, 0, 0, 0, 0.2, 0, 0, 0, 1, -9, 0, 0)
 mesh = SubResource("BoxMesh_1786k")
 surface_material_override/0 = SubResource("StandardMaterial3D_yb1ct")
+
+[node name="Path3D" type="Path3D" parent="rua" unique_id=1475558456]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0, 0)
+curve = SubResource("Curve3D_ehuit")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="rua/Path3D" unique_id=461767590]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 0, 0, 0)
+rotation_mode = 4
+script = ExtResource("2_rwowx")
+
+[node name="Node3D" parent="rua/Path3D/PathFollow3D" unique_id=29113295 instance=ExtResource("2_5mrt3")]
+transform = Transform3D(-0.03, 0, -2.6226832e-09, 0, 0.03, 0, 2.6226832e-09, 0, -0.03, 0, 0, 0)
 
 [node name="grama3" type="Node3D" parent="." unique_id=456343460]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
@@ -282,18 +399,29 @@ transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, -9, 0, 0)
 mesh = SubResource("BoxMesh_1786k")
 surface_material_override/0 = SubResource("StandardMaterial3D_7n6eb")
 
-[node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=1775318193]
+[node name="Player" type="CharacterBody3D" parent="." unique_id=1775318193 groups=["player"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
 script = ExtResource("1_7n6eb")
 
-[node name="Camera3D" type="Camera3D" parent="CharacterBody3D" unique_id=1144461222]
-transform = Transform3D(0.98977625, -0.10085389, 0.10085388, 0, 0.70710677, 0.7071068, -0.14262894, -0.6998775, 0.69987744, 1.23, 7.6860003, 5.86)
-projection = 1
-size = 7.0
+[node name="Teto" type="MeshInstance3D" parent="Player" unique_id=918879858]
+transform = Transform3D(-0.245, 0, -2.141858e-08, 0, 0.245, 0, 2.141858e-08, 0, -0.245, 0, -0.010241702, 0)
+mesh = ExtResource("3_ehuit")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D" unique_id=437124802]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player" unique_id=437124802]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+visible = false
 mesh = SubResource("BoxMesh_cgksj")
 surface_material_override/0 = SubResource("StandardMaterial3D_rwowx")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D" unique_id=1904106762]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=1904106762]
+transform = Transform3D(0.345, 0, 0, 0, 0.345, 0, 0, 0, 0.345, 0, 0.5341797, 0)
+shape = SubResource("BoxShape3D_rwowx")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=25261722]
+
+[node name="Button" type="Button" parent="CanvasLayer" unique_id=799833073]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Restart"
+
+[connection signal="pressed" from="CanvasLayer/Button" to="Camera3D" method="_on_button_pressed"]

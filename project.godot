@@ -19,6 +19,16 @@ config/icon="res://icon.svg"
 
 project/assembly_name="Novo Projeto de Jogo"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/MagicaVoxel_Importer_with_Extensions/plugin.cfg")
+
+[importer_defaults]
+
+MagicaVoxel.With.Extensions.To.Mesh={
+&"Scale": 1.0
+}
+
 [input]
 
 cima={

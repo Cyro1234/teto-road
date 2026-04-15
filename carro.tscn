@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://tiscfxms73nr"]
+
+[ext_resource type="ArrayMesh" uid="uid://c1vuu6s66fx0j" path="res://Pearto.vox" id="1_dvi8e"]
+[ext_resource type="Script" uid="uid://e07aiwgl3202" path="res://area_3d.gd" id="2_3s8ng"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dvi8e"]
+
+[node name="Node3D" type="Node3D" unique_id=29113295]
+
+[node name="Pearto" type="MeshInstance3D" parent="." unique_id=1228510305]
+mesh = ExtResource("1_dvi8e")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1065080915]
+script = ExtResource("2_3s8ng")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1421263701]
+transform = Transform3D(31.91, 0, 0, 0, 31.91, 0, 0, 0, 31.91, 0, 17.589355, 0)
+shape = SubResource("BoxShape3D_dvi8e")
