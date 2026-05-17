@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://bd47u08gjie6t"]
+
+[ext_resource type="ArrayMesh" uid="uid://dhcdev8trs10k" path="res://assets/baguete.vox" id="1_12f4b"]
+
+[node name="Node3D" type="Node3D" unique_id=988597971]
+
+[node name="Baguete" type="MeshInstance3D" parent="." unique_id=122970595]
+transform = Transform3D(0.24, 0, 0, 0, 0.24, 0, 0, 0, 0.24, 0.245, 0, 0)
+mesh = ExtResource("1_12f4b")

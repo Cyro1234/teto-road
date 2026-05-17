@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://tiscfxms73nr"]
 
-[ext_resource type="ArrayMesh" uid="uid://c1vuu6s66fx0j" path="res://Pearto.vox" id="1_dvi8e"]
-[ext_resource type="Script" uid="uid://e07aiwgl3202" path="res://area_3d.gd" id="2_3s8ng"]
+[ext_resource type="ArrayMesh" uid="uid://c1vuu6s66fx0j" path="res://assets/Pearto.vox" id="1_dvi8e"]
+[ext_resource type="Script" uid="uid://e07aiwgl3202" path="res://scripts/area_3d.gd" id="2_3s8ng"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dvi8e"]
 
