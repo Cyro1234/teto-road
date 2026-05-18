@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://dfhdds8n1ayon" path="res://scripts/path_follow_3d.gd" id="2_xuns8"]
 [ext_resource type="PackedScene" uid="uid://tiscfxms73nr" path="res://cenas/objetos/carro.tscn" id="3_h7mmf"]
 [ext_resource type="Script" uid="uid://cscnmqne5fp8h" path="res://scripts/input.gd" id="4_am7q7"]
-[ext_resource type="PackedScene" uid="uid://bd47u08gjie6t" path="res://cenas/objetos/baguete.tscn" id="4_xuns8"]
+[ext_resource type="PackedScene" uid="uid://dmse3w4baa46q" path="res://cenas/partes/rio.tscn" id="4_xuns8"]
 [ext_resource type="ArrayMesh" uid="uid://cq0umd2grveis" path="res://assets/teto.vox" id="5_n4wnb"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_1786k"]
@@ -39,12 +39,6 @@ _data = {
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ehuit"]
-albedo_color = Color(0.47879997, 0.72562003, 0.84, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5mrt3"]
-albedo_color = Color(0.5372549, 0.8117647, 0.9411765, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_cgksj"]
 lightmap_size_hint = Vector2i(14, 21)
@@ -274,6 +268,9 @@ script = ExtResource("2_xuns8")
 [node name="Node3D" parent="rua/Path3D/PathFollow3D" unique_id=29113295 instance=ExtResource("3_h7mmf")]
 transform = Transform3D(-0.03, 0, -2.6226832e-09, 0, 0.03, 0, 2.6226832e-09, 0, -0.03, 0, 0, 0)
 
+[node name="rio" parent="." unique_id=617762356 instance=ExtResource("4_xuns8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
+
 [node name="grama3" type="Node3D" parent="." unique_id=456343460]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
 
@@ -291,36 +288,6 @@ surface_material_override/0 = SubResource("StandardMaterial3D_2vsai")
 transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, -9, 0, 0)
 mesh = SubResource("BoxMesh_1786k")
 surface_material_override/0 = SubResource("StandardMaterial3D_7n6eb")
-
-[node name="rio" type="Node3D" parent="." unique_id=1213174968]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
-
-[node name="esquerda" type="MeshInstance3D" parent="rio" unique_id=1867243385]
-transform = Transform3D(9, 0, 0, 0, 0.1, 0, 0, 0, 1, 9, 0, 0)
-mesh = SubResource("BoxMesh_1786k")
-surface_material_override/0 = SubResource("StandardMaterial3D_ehuit")
-
-[node name="centro" type="MeshInstance3D" parent="rio" unique_id=541912063]
-transform = Transform3D(9, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, 0, 0)
-mesh = SubResource("BoxMesh_1786k")
-surface_material_override/0 = SubResource("StandardMaterial3D_5mrt3")
-
-[node name="direita" type="MeshInstance3D" parent="rio" unique_id=905356690]
-transform = Transform3D(9, 0, 0, 0, 0.1, 0, 0, 0, 1, -9, 0, 0)
-mesh = SubResource("BoxMesh_1786k")
-surface_material_override/0 = SubResource("StandardMaterial3D_ehuit")
-
-[node name="Path3D" type="Path3D" parent="rio" unique_id=1285769086]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0, 0)
-curve = SubResource("Curve3D_ehuit")
-
-[node name="PathFollow3D" type="PathFollow3D" parent="rio/Path3D" unique_id=845745977]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 0, 0, 0)
-rotation_mode = 4
-script = ExtResource("2_xuns8")
-
-[node name="Node3D" parent="rio/Path3D/PathFollow3D" unique_id=988597971 instance=ExtResource("4_xuns8")]
-transform = Transform3D(0.345, 0, 0, 0, 0.345, 0, 0, 0, 0.345, 0, -0.26826382, 0)
 
 [node name="grama4" type="Node3D" parent="." unique_id=1067218340]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
@@ -427,7 +394,7 @@ mesh = SubResource("BoxMesh_cgksj")
 surface_material_override/0 = SubResource("StandardMaterial3D_rwowx")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=1904106762]
-transform = Transform3D(0.345, 0, 0, 0, 0.345, 0, 0, 0, 0.345, 0, 0.5341797, 0)
+transform = Transform3D(0.345, 0, 0, 0, 0.345, 0, 0, 0, 0.345, 0, 0.13736914, 0)
 shape = SubResource("BoxShape3D_rwowx")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=25261722]
