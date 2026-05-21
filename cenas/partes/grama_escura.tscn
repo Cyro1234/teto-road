@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://d0a2xswvuytkk"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_cjv2d"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s8ean"]
+albedo_color = Color(0.12649995, 0.75, 0.10499999, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w780f"]
+albedo_color = Color(0.1254902, 0.7490196, 0.105882354, 1)
+
+[node name="Node3D" type="Node3D" unique_id=1113837156]
+
+[node name="esquerda" type="MeshInstance3D" parent="." unique_id=637987687]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, 9, 0, 0)
+mesh = SubResource("BoxMesh_cjv2d")
+surface_material_override/0 = SubResource("StandardMaterial3D_s8ean")
+
+[node name="grama0" type="MeshInstance3D" parent="." unique_id=673585551]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_cjv2d")
+surface_material_override/0 = SubResource("StandardMaterial3D_w780f")
+
+[node name="direita" type="MeshInstance3D" parent="." unique_id=511193729]
+transform = Transform3D(9, 0, 0, 0, 0.4, 0, 0, 0, 1, -9, 0, 0)
+mesh = SubResource("BoxMesh_cjv2d")
+surface_material_override/0 = SubResource("StandardMaterial3D_s8ean")

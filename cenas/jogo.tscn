@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://byboon1pmpea8"]
+
+[ext_resource type="Script" uid="uid://bkgs0o2hudxbi" path="res://cenas/jogo.gd" id="1_1frua"]
+[ext_resource type="Script" uid="uid://cscnmqne5fp8h" path="res://scripts/input.gd" id="1_32vai"]
+[ext_resource type="ArrayMesh" uid="uid://cq0umd2grveis" path="res://assets/teto.vox" id="2_1frua"]
+[ext_resource type="Script" uid="uid://brhmppi6j3u3a" path="res://scripts/camera_3d.gd" id="2_bkotw"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_bkotw"]
+lightmap_size_hint = Vector2i(14, 21)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dmxwg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dtkcs"]
+
+[node name="Node3D" type="Node3D" unique_id=1250393145]
+script = ExtResource("1_1frua")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=341141801]
+transform = Transform3D(0.9902681, -0.098410256, 0.098410256, 0, 0.7071068, 0.7071068, -0.13917312, -0.7002253, 0.7002253, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=159045124 node_paths=PackedStringArray("target")]
+transform = Transform3D(0.9902681, -0.098410256, 0.098410256, 0, 0.7071068, 0.7071068, -0.13917312, -0.7002253, 0.7002253, 1.23, 7.886, 5.86)
+projection = 1
+size = 7.0
+script = ExtResource("2_bkotw")
+target = NodePath("../Player")
+
+[node name="Player" type="CharacterBody3D" parent="." unique_id=63331174 groups=["player"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+script = ExtResource("1_32vai")
+
+[node name="Teto" type="MeshInstance3D" parent="Player" unique_id=2011048227]
+transform = Transform3D(-0.245, 0, -2.141858e-08, 0, 0.245, 0, 2.141858e-08, 0, -0.245, 0, -0.010241702, 0)
+mesh = ExtResource("2_1frua")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player" unique_id=1522985091]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+visible = false
+mesh = SubResource("BoxMesh_bkotw")
+surface_material_override/0 = SubResource("StandardMaterial3D_dmxwg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=767125159]
+transform = Transform3D(0.345, 0, 0, 0, 0.345, 0, 0, 0, 0.345, 0, 0.13736914, 0)
+shape = SubResource("BoxShape3D_dtkcs")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1350324725]
+
+[node name="Button" type="Button" parent="CanvasLayer" unique_id=2109721160]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Restart"
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]

@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://ckocn7pwtvdbd"]
+
+[ext_resource type="Script" uid="uid://dfhdds8n1ayon" path="res://scripts/path_follow_3d.gd" id="1_ll5nn"]
+[ext_resource type="PackedScene" uid="uid://bd47u08gjie6t" path="res://cenas/objetos/baguete.tscn" id="2_657rq"]
+[ext_resource type="Script" uid="uid://v3s76yqcvu6f" path="res://scripts/rio.gd" id="3_uptrt"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ni7vg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wynpi"]
+albedo_color = Color(0.47879997, 0.72562003, 0.84, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c3ca0"]
+albedo_color = Color(0.5372549, 0.8117647, 0.9411765, 1)
+
+[sub_resource type="Curve3D" id="Curve3D_76xyp"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 26, 0, 0),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_eddct"]
+
+[node name="Node3D" type="Node3D" unique_id=1934754112]
+
+[node name="esquerda" type="MeshInstance3D" parent="." unique_id=439014421]
+transform = Transform3D(9, 0, 0, 0, 0.1, 0, 0, 0, 1, 9, 0, 0)
+mesh = SubResource("BoxMesh_ni7vg")
+surface_material_override/0 = SubResource("StandardMaterial3D_wynpi")
+
+[node name="centro" type="MeshInstance3D" parent="." unique_id=640333189]
+transform = Transform3D(9, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_ni7vg")
+surface_material_override/0 = SubResource("StandardMaterial3D_c3ca0")
+
+[node name="direita" type="MeshInstance3D" parent="." unique_id=2146709243]
+transform = Transform3D(9, 0, 0, 0, 0.1, 0, 0, 0, 1, -9, 0, 0)
+mesh = SubResource("BoxMesh_ni7vg")
+surface_material_override/0 = SubResource("StandardMaterial3D_wynpi")
+
+[node name="Path3D" type="Path3D" parent="." unique_id=1889820191]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0, 0)
+curve = SubResource("Curve3D_76xyp")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D" unique_id=918958267]
+transform = Transform3D(0, 0, -1, 0, 1.0000011, 0, 0.99999756, 0, 0, 0, 0, 0)
+rotation_mode = 4
+script = ExtResource("1_ll5nn")
+
+[node name="Node3D" parent="Path3D/PathFollow3D" unique_id=988597971 instance=ExtResource("2_657rq")]
+transform = Transform3D(0.345, 0, 0, 0, 0.345, 0, 0, 0, 0.345, 0, -0.26826382, 0)
+
+[node name="Rio" type="Area3D" parent="." unique_id=23468938]
+script = ExtResource("3_uptrt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Rio" unique_id=1155709796]
+transform = Transform3D(9, 0, 0, 0, 1.865, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_eddct")

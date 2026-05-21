@@ -45,6 +45,9 @@ func _physics_process(delta):
 
 		if objeto_com_velocidade.has_method("get_velocidade"):
 			var velocidade = objeto_com_velocidade.get_velocidade()
+			
+			# Como o rio normal e o invertido são cenas separadas, a velocidade horizontal 
+			# vinda deles já estará com o sinal de X correto (+ para direita, - para esquerda)!
 			var movimento = velocidade * delta
 
 			# Adiciona o movimento horizontal da baguete ao destino

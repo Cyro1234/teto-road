@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://csxhhcw3csq3y"]
+
+[ext_resource type="Script" uid="uid://dfhdds8n1ayon" path="res://scripts/path_follow_3d.gd" id="1_mnhic"]
+[ext_resource type="PackedScene" uid="uid://tiscfxms73nr" path="res://cenas/objetos/carro.tscn" id="2_juakf"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_uwpbg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7ygj1"]
+albedo_color = Color(0.1494, 0.18, 0.18, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_obgy1"]
+albedo_color = Color(0.23137255, 0.2784314, 0.2784314, 1)
+
+[sub_resource type="Curve3D" id="Curve3D_xrcir"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 26, 0, 0),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[node name="Node3D" type="Node3D" unique_id=1165803569]
+
+[node name="esquerda" type="MeshInstance3D" parent="." unique_id=2021919793]
+transform = Transform3D(9, 0, 0, 0, 0.2, 0, 0, 0, 1, 9, 0, 0)
+mesh = SubResource("BoxMesh_uwpbg")
+surface_material_override/0 = SubResource("StandardMaterial3D_7ygj1")
+
+[node name="centro" type="MeshInstance3D" parent="." unique_id=942709968]
+transform = Transform3D(9, 0, 0, 0, 0.2, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_uwpbg")
+surface_material_override/0 = SubResource("StandardMaterial3D_obgy1")
+
+[node name="direita" type="MeshInstance3D" parent="." unique_id=1070772133]
+transform = Transform3D(9, 0, 0, 0, 0.2, 0, 0, 0, 1, -9, 0, 0)
+mesh = SubResource("BoxMesh_uwpbg")
+surface_material_override/0 = SubResource("StandardMaterial3D_7ygj1")
+
+[node name="Path3D" type="Path3D" parent="." unique_id=844263242]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0, 0)
+curve = SubResource("Curve3D_xrcir")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D" unique_id=30440678]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 0, 0, 0)
+rotation_mode = 4
+script = ExtResource("1_mnhic")
+
+[node name="Node3D" parent="Path3D/PathFollow3D" unique_id=29113295 instance=ExtResource("2_juakf")]
+transform = Transform3D(-0.03, 0, -2.6226832e-09, 0, 0.03, 0, 2.6226832e-09, 0, -0.03, 0, 0, 0)
