@@ -1,0 +1,18 @@
+[remap]
+
+importer="MagicaVoxel.With.Extensions.To.Mesh"
+type="Mesh"
+uid="uid://mvr8cm6wejcn"
+path="res://.godot/imported/picles ondulado.vox-c387b7c1d924f3dadd7de41eff24ee89.mesh"
+
+[deps]
+
+source_file="res://assets/picles ondulado.vox"
+dest_files=["res://.godot/imported/picles ondulado.vox-c387b7c1d924f3dadd7de41eff24ee89.mesh"]
+
+[params]
+
+Scale=1.0
+GreedyMeshGenerator=true
+SnapToGround=false
+FirstKeyframeOnly=true

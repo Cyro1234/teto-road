@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://bwfmd5g62wbnl"]
+
+[ext_resource type="ArrayMesh" uid="uid://mvr8cm6wejcn" path="res://assets/picles ondulado.vox" id="1_0cfdo"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_eoy3s"]
+
+[node name="Picles" type="Node3D" unique_id=471878955]
+
+[node name="Baguete" type="MeshInstance3D" parent="." unique_id=928579913 groups=["baguete"]]
+transform = Transform3D(0.305, 0, 0, 0, 0.305, 0, 0, 0, 0.305, 0, 0, 0)
+mesh = ExtResource("1_0cfdo")
+
+[node name="Area3D" type="Area3D" parent="Baguete" unique_id=1409172269 groups=["baguete"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Baguete/Area3D" unique_id=2037895935 groups=["baguete"]]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0.12271541, 0)
+shape = SubResource("BoxShape3D_eoy3s")

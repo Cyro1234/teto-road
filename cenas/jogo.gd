@@ -5,6 +5,7 @@ extends Node3D
 @export var cena_grama_escura: PackedScene = preload("res://cenas/partes/grama_escura.tscn")
 @export var cena_rio: PackedScene = preload("res://cenas/partes/rio.tscn")
 @export var cena_rio_invertido: PackedScene = preload("res://cenas/partes/rio_invertido.tscn")
+@export var cena_rio_picles: PackedScene = preload("res://cenas/partes/rio_picles.tscn")
 @export var cena_rua: PackedScene = preload("res://cenas/partes/rua.tscn")
 
 # Configurações do Grid e do tamanho do Mapa
@@ -98,13 +99,16 @@ func gerar_logica_procedural_faixa() -> void:
 				
 		"rio":
 			var escolha = randi() % 3
+			#if escolha == 0:
+				#cena_escolhida = cena_rio_invertido if sorteio_inversao else cena_rio
+				#ultimo_tipo = "rio"
+			#elif escolha == 1:
+				#cena_escolhida = cena_rio_picles
+				#ultimo_tipo = "rio"
 			if escolha == 0:
-				cena_escolhida = cena_rio_invertido if sorteio_inversao else cena_rio
-				ultimo_tipo = "rio"
-			elif escolha == 1:
 				cena_escolhida = cena_rua
 				inverter_rua = sorteio_inversao
-				ultimo_tipo = "rua"
+				ultimo_tipo = "picles"
 			else:
 				cena_escolhida = cena_grama
 				ultimo_tipo = "grama"
@@ -118,6 +122,15 @@ func gerar_logica_procedural_faixa() -> void:
 			else:
 				cena_escolhida = cena_grama
 				ultimo_tipo = "grama"
+		"picles":
+			var escolha = randi() % 2
+			if escolha == 0:
+				cena_escolhida = cena_rio_picles
+				ultimo_tipo = "rio"
+			else:
+				cena_escolhida = cena_grama
+				ultimo_tipo = "grama"
+		
 
 	spawnar_faixa_na_posicao(cena_escolhida, inverter_rua)
 

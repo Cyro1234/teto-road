@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://cnsjqo2nv82yr"]
+
+[ext_resource type="Script" uid="uid://caibbxicyi27y" path="res://scripts/path_follow_picles.gd" id="1_yj6s2"]
+[ext_resource type="PackedScene" uid="uid://bwfmd5g62wbnl" path="res://cenas/objetos/picles.tscn" id="2_yj6s2"]
+[ext_resource type="Script" uid="uid://v3s76yqcvu6f" path="res://scripts/rio.gd" id="3_x65wa"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_xi0kq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w1s70"]
+albedo_color = Color(0.47879997, 0.72562003, 0.84, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fbp07"]
+albedo_color = Color(0.5372549, 0.8117647, 0.9411765, 1)
+
+[sub_resource type="Curve3D" id="Curve3D_jtw71"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j2p1k"]
+
+[node name="RioPicles" type="Node3D" unique_id=1768505897]
+
+[node name="esquerda" type="MeshInstance3D" parent="." unique_id=1153012340]
+transform = Transform3D(9, 0, 0, 0, 0.1, 0, 0, 0, 1, 9, 0, 0)
+mesh = SubResource("BoxMesh_xi0kq")
+surface_material_override/0 = SubResource("StandardMaterial3D_w1s70")
+
+[node name="centro" type="MeshInstance3D" parent="." unique_id=1717453285]
+transform = Transform3D(9, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_xi0kq")
+surface_material_override/0 = SubResource("StandardMaterial3D_fbp07")
+
+[node name="direita" type="MeshInstance3D" parent="." unique_id=1647468326]
+transform = Transform3D(9, 0, 0, 0, 0.1, 0, 0, 0, 1, -9, 0, 0)
+mesh = SubResource("BoxMesh_xi0kq")
+surface_material_override/0 = SubResource("StandardMaterial3D_w1s70")
+
+[node name="Path3D" type="Path3D" parent="." unique_id=2006347089]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0)
+curve = SubResource("Curve3D_jtw71")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D" unique_id=732782186]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 0, 0, 0)
+rotation_mode = 4
+script = ExtResource("1_yj6s2")
+
+[node name="Picles" parent="Path3D/PathFollow3D" unique_id=471878955 instance=ExtResource("2_yj6s2")]
+transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, 0, 0.055182397, 0)
+
+[node name="Rio" type="Area3D" parent="." unique_id=1071477630]
+script = ExtResource("3_x65wa")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Rio" unique_id=203583095]
+transform = Transform3D(9, 0, 0, 0, 1.865, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_j2p1k")
