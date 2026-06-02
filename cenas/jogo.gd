@@ -21,11 +21,19 @@ var player_nodo: CharacterBody3D = null
 # Variáveis para a mecânica de morte por recuo
 var maior_linha_alcancada := 0 # Guarda o Z mais distante (em coordenadas positivas de passos)
 
+# Referência para o texto de pontuação na tela ---
+@onready var score_label = $CanvasLayer/ScoreLabel
+
 func _ready() -> void:
 	randomize()
 	
 	# Busca o jogador dinamicamente na cena
 	player_nodo = get_tree().get_first_node_in_group("player")
+	
+	# Conecta o sinal do jogador para atualizar a interface ---
+	if player_nodo != null:
+		# Avisa o jogo para rodar a função atualizar_texto_score sempre que o sinal for emitido
+		player_nodo.pontuacao_atualizada.connect(atualizar_texto_score)
 	
 	# 1. Configura o ponto inicial da construção lá atrás no Z = 8 positivo
 	proximo_z = 8
@@ -164,3 +172,10 @@ func proximo_z_para_linha() -> int:
 
 func _on_button_pressed() -> void:
 	get_tree().reload_current_scene()
+	
+# Função que escreve a pontuação na tela ---
+func atualizar_texto_score(nova_pontuacao: int) -> void:
+	# Verificamos se o nó existe para evitar erros
+	if score_label != null:
+		# Transforma o número inteiro (int) em um texto (String) para colocar no Label
+		score_label.text = str(nova_pontuacao)

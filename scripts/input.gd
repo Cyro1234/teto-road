@@ -9,6 +9,11 @@ var target_position: Vector3
 var is_moving := false
 var is_dead := false
 
+# Variáveis para o sistema de Score
+signal pontuacao_atualizada(nova_pontuacao) # Sinal que vai avisar a interface quando o score mudar
+var z_inicial: float = 0.0                  # Guarda a posição de onde o player começou
+var pontuacao_maxima: int = 0               # Guarda o recorde de passos para frente
+
 # VARIÁVEIS DE CONTROLE DA BAGUETE
 var baguete_atual: Node3D = null
 var estava_na_baguete := false
@@ -19,6 +24,8 @@ func _ready():
 	global_position.x = round(global_position.x)
 	global_position.z = round(global_position.z)
 	target_position = global_position
+	#Salva a posição Z de início
+	z_inicial = global_position.z
 
 func _physics_process(delta):
 	if is_dead:
@@ -73,6 +80,7 @@ func _physics_process(delta):
 		if global_position.distance_to(target_position) < 0.01:
 			global_position = target_position
 			is_moving = false
+			checar_pontuacao()
 			
 			# Se ela acabou de aterrissar no chão firme (grama/rua) vinda de uma baguete, crava no grid!
 			if estava_na_baguete and baguete_atual == null:
@@ -189,3 +197,12 @@ func die(tipo_de_morte: String = "carro"):
 		tween.parallel().tween_property(self, "scale", Vector3(0.2, 0.2, 0.2), 0.4)
 	else:
 		$".".scale.y = 0.2
+		
+
+# Função que calcula o score
+func checar_pontuacao():
+	var passos_dados = int(z_inicial - global_position.z)
+	
+	if passos_dados > pontuacao_maxima:
+		pontuacao_maxima = passos_dados
+		pontuacao_atualizada.emit(pontuacao_maxima)

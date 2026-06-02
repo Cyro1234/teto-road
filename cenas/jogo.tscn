@@ -51,4 +51,12 @@ offset_bottom = 8.0
 text = "Restart"
 metadata/_edit_use_anchors_ = true
 
+[node name="ScoreLabel" type="Label" parent="CanvasLayer" unique_id=1019707027]
+offset_left = 1103.0
+offset_top = 1.0
+offset_right = 1159.0
+offset_bottom = 60.0
+theme_override_font_sizes/font_size = 32
+text = "0"
+
 [connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
