@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cnsjqo2nv82yr"]
 
-[ext_resource type="Script" uid="uid://caibbxicyi27y" path="res://scripts/path_follow_picles.gd" id="1_yj6s2"]
+[ext_resource type="Script" path="res://scripts/path_follow_picles.gd" id="1_yj6s2"]
 [ext_resource type="PackedScene" uid="uid://bwfmd5g62wbnl" path="res://cenas/objetos/picles.tscn" id="2_yj6s2"]
 [ext_resource type="Script" uid="uid://v3s76yqcvu6f" path="res://scripts/rio.gd" id="3_x65wa"]
 
@@ -47,7 +47,7 @@ transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 0, 0, 0)
 rotation_mode = 4
 script = ExtResource("1_yj6s2")
 
-[node name="Picles" parent="Path3D/PathFollow3D" unique_id=471878955 instance=ExtResource("2_yj6s2")]
+[node name="Picles" parent="Path3D/PathFollow3D" unique_id=471878955 groups=["baguete"] instance=ExtResource("2_yj6s2")]
 transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, 0, 0.055182397, 0)
 
 [node name="Rio" type="Area3D" parent="." unique_id=1071477630]

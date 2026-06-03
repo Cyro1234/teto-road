@@ -78,7 +78,7 @@ func esta_na_baguete(player: CharacterBody3D) -> bool:
 
 			var distancia = dist_player.distance_to(dist_baguete)
 
-			if distancia < 1.8:
+			if distancia < 1:
 				return true
 
 	return false

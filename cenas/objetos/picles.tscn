@@ -6,12 +6,13 @@
 
 [node name="Picles" type="Node3D" unique_id=471878955]
 
-[node name="Baguete" type="MeshInstance3D" parent="." unique_id=928579913 groups=["baguete"]]
+[node name="Baguete" type="MeshInstance3D" parent="." unique_id=928579913]
 transform = Transform3D(0.305, 0, 0, 0, 0.305, 0, 0, 0, 0.305, 0, 0, 0)
 mesh = ExtResource("1_0cfdo")
 
 [node name="Area3D" type="Area3D" parent="Baguete" unique_id=1409172269 groups=["baguete"]]
+transform = Transform3D(0.555, 0, 0, 0, 0.555, 0, 0, 0, 0.555, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Baguete/Area3D" unique_id=2037895935 groups=["baguete"]]
-transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0.12271541, 0)
+transform = Transform3D(25.73, 0, 0, 0, 25.73, 0, 0, 0, 25.73, 0, 0.12271541, 0)
 shape = SubResource("BoxShape3D_eoy3s")
