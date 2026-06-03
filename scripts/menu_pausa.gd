@@ -1,23 +1,21 @@
 extends Control
 
-@onready var botao_recomecar: Button = $VBoxContainer/BotaoRecomecar
-@onready var botao_menu: Button = $VBoxContainer/BotaoMenu
-@onready var vbox: VBoxContainer = $VBoxContainer
+# Usando find_child() o código nunca quebra por erro de caminho (Path)!
+@onready var botao_recomecar: Button = find_child("BotaoRecomecar")
+@onready var botao_menu: Button = find_child("BotaoMenu")
+@onready var vbox: VBoxContainer = find_child("VBoxContainer")
 
 var aviso_label: Label = null
-
-# VARIÁVEL DE CONTROLE: Salva se o botão deve carregar o jogo principal ou apenas reiniciar
 var transitar_para_jogo := false
 
 func _ready() -> void:
-	hide() # Garante que o menu começa escondido
-	
-	# REGISTRO EM GRUPO: Permite que qualquer script do jogo encontre o menu instantaneamente
+	hide() 
 	add_to_group("menu_pausa")
-	
 	process_mode = Node.PROCESS_MODE_ALWAYS 
-	botao_recomecar.pressed.connect(_on_recomecar_pressed)
-	botao_menu.pressed.connect(_on_voltar_menu_pressed)
+	
+	# Verifica se os botões foram encontrados antes de conectar para evitar crashes
+	if botao_recomecar: botao_recomecar.pressed.connect(_on_recomecar_pressed)
+	if botao_menu: botao_menu.pressed.connect(_on_voltar_menu_pressed)
 
 func _input(event: InputEvent) -> void:
 	# Impede o pause manual via ESC caso o jogador já tenha morrido

@@ -48,22 +48,34 @@ shape = SubResource("BoxShape3D_rwowx")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=25261722]
 
-[node name="Button" type="Button" parent="CanvasLayer" unique_id=799833073]
-offset_right = 8.0
-offset_bottom = 8.0
-text = "Restart"
+[node name="PainelDialogo" type="PanelContainer" parent="CanvasLayer" unique_id=527519653]
+offset_left = 147.0
+offset_top = 432.0
+offset_right = 187.0
+offset_bottom = 472.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
-[node name="PainelDialogo" type="Panel" parent="CanvasLayer" unique_id=881912966]
-visible = false
-offset_left = 141.0
-offset_top = 182.0
-offset_right = 181.0
-offset_bottom = 222.0
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PainelDialogo" unique_id=1128689414]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
 
-[node name="TextoDialogo" type="Label" parent="CanvasLayer/PainelDialogo" unique_id=1757990470]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+[node name="TextoDialogo" type="Label" parent="CanvasLayer/PainelDialogo/MarginContainer" unique_id=1757990470]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+autowrap_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/PainelDialogo/MarginContainer" unique_id=2121911061]
+layout_direction = 3
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 10
+text = "Clique ou Pressione Enter ↲ para continuar"
+vertical_alignment = 2
 
 [node name="GatilhoRio" type="Area3D" parent="." unique_id=697984942]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
@@ -94,5 +106,3 @@ transform = Transform3D(9, 0, 0, 0, 1.865, 0, 0, 0, 0.1, 0, 0, 0)
 shape = SubResource("BoxShape3D_nn0l7")
 
 [node name="Pausa" parent="." unique_id=610118416 instance=ExtResource("5_0wk67")]
-
-[connection signal="pressed" from="CanvasLayer/Button" to="Camera3D" method="_on_button_pressed"]

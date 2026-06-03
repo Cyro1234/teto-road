@@ -35,12 +35,6 @@ shape = SubResource("BoxShape3D_dtkcs")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1350324725]
 
-[node name="Button" type="Button" parent="CanvasLayer" unique_id=2109721160]
-offset_right = 8.0
-offset_bottom = 8.0
-text = "Restart"
-metadata/_edit_use_anchors_ = true
-
 [node name="ScoreLabel" type="Label" parent="CanvasLayer" unique_id=1019707027]
 offset_left = 1103.0
 offset_top = 1.0
@@ -50,5 +44,3 @@ theme_override_font_sizes/font_size = 32
 text = "0"
 
 [node name="Pausa" parent="." unique_id=610118416 instance=ExtResource("5_dmxwg")]
-
-[connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]

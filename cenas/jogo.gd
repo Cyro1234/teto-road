@@ -162,9 +162,6 @@ func spawnar_proxima_faixa_especifica(cena: PackedScene) -> void:
 # Função auxiliar para ler o Z atual de forma positiva
 func proximo_z_para_linha() -> int:
 	return int(abs(proximo_z))
-
-func _on_button_pressed() -> void:
-	get_tree().reload_current_scene()
 	
 # Função que escreve a pontuação na tela ---
 func atualizar_texto_score(nova_pontuacao: int) -> void:

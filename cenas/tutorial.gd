@@ -9,8 +9,8 @@ extends Node3D
 @export var cena_picles: PackedScene = preload("res://cenas/partes/rio_picles.tscn")
 
 # Referências dos nós da Interface que criamos
-@onready var painel_dialogo: Panel = $CanvasLayer/PainelDialogo
-@onready var texto_dialogo: Label = $CanvasLayer/PainelDialogo/TextoDialogo
+@onready var painel_dialogo: PanelContainer = $CanvasLayer/PainelDialogo
+@onready var texto_dialogo: Label = $CanvasLayer/PainelDialogo/MarginContainer/TextoDialogo
 @onready var player: CharacterBody3D = $Player
 
 # VARIÁVEIS ADICIONADAS PARA O CONTROLE DE MORTE E TRAVA
@@ -37,7 +37,7 @@ func _ready() -> void:
 	
 	# Mostra a mensagem inicial do jogo após um curtíssimo frame
 	await get_tree().process_frame
-	mostrar_mensagem("inicio", "Bem-vindo ao Tutorial! Use as teclas de direção para se movimentar e avançar.")
+	mostrar_mensagem("inicio", "Bem-vindo ao Tutorial! Use as teclas WASD/⭡⭠⭣⭢ para se movimentar e avançar.")
 
 # Altere a sua função _process() antiga por esta:
 func _process(_delta: float) -> void:
@@ -66,7 +66,7 @@ func _input(event: InputEvent) -> void:
 
 func gerar_mapa_tutorial() -> void:
 	var posicoes_grama = [-13 ,-12,-11,-10,-9, -5, -3, -1, 0, 1, 2, 3, 4]
-	var posicoes_grama_escura = [5, 6, 7, 8]
+	var posicoes_grama_escura = [-20,-19,-18,-17,-16,-15,-14,5, 6, 7, 8]
 	var posicoes_rio = [-8, -4]
 	var posicoes_rua = [-2]
 	var posicoes_picles = [-7]
