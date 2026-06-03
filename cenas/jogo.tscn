@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://cscnmqne5fp8h" path="res://scripts/input.gd" id="1_32vai"]
 [ext_resource type="ArrayMesh" uid="uid://cq0umd2grveis" path="res://assets/teto.vox" id="2_1frua"]
 [ext_resource type="Script" uid="uid://brhmppi6j3u3a" path="res://scripts/camera_3d.gd" id="2_bkotw"]
+[ext_resource type="PackedScene" uid="uid://ck2pow5kg3ggx" path="res://cenas/menu_pausa.tscn" id="5_dmxwg"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dtkcs"]
 
@@ -47,5 +48,7 @@ offset_right = 1159.0
 offset_bottom = 60.0
 theme_override_font_sizes/font_size = 32
 text = "0"
+
+[node name="Pausa" parent="." unique_id=610118416 instance=ExtResource("5_dmxwg")]
 
 [connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]

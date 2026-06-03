@@ -10,21 +10,19 @@ var is_moving := false
 var is_dead := false
 
 # Variáveis para o sistema de Score
-signal pontuacao_atualizada(nova_pontuacao) # Sinal que vai avisar a interface quando o score mudar
-var z_inicial: float = 0.0                  # Guarda a posição de onde o player começa 
-var pontuacao_maxima: int = 0               # Guarda o recorde de passos para frente
+signal pontuacao_atualizada(nova_pontuacao)
+var z_inicial: float = 0.0                  
+var pontuacao_maxima: int = 0               
 
 # VARIÁVEIS DE CONTROLE DA BAGUETE / PICLES
 var baguete_atual: Node3D = null
 var estava_na_baguete := false
-var ultima_baguete_id: Node3D = null # Guarda a referência da baguete/picles mesmo durante o pulo
+var ultima_baguete_id: Node3D = null 
 
 func _ready():
-	# Garante que começamos alinhados no grid
 	global_position.x = round(global_position.x)
 	global_position.z = round(global_position.z)
 	target_position = global_position
-	# Salva a posição Z de início
 	z_inicial = global_position.z
 
 func _physics_process(delta):
@@ -32,10 +30,8 @@ func _physics_process(delta):
 	
 	rotation.y = lerp_angle(rotation.y, target_rotation_y, 10 * delta)
 	
-	# 1. Atualiza se o sensor encontrou a baguete ou picles embaixo
 	checar_se_esta_na_baguete()
 	
-	# --- USAR A ULTIMA BAGUETE/PICLES SE ESTIVER PULANDO ---
 	var baguete_para_mover = baguete_atual if baguete_atual != null else (ultima_baguete_id if is_moving else null)
 	
 	if baguete_para_mover != null and is_instance_valid(baguete_para_mover):
@@ -43,40 +39,49 @@ func _physics_process(delta):
 		if baguete_atual != null:
 			ultima_baguete_id = baguete_atual
 		
-		# Buscando o método get_velocidade() subindo na hierarquia se necessário
 		var objeto_com_velocidade = baguete_para_mover
 		if not objeto_com_velocidade.has_method("get_velocidade") and objeto_com_velocidade.get_parent():
 			objeto_com_velocidade = objeto_com_velocidade.get_parent()
 			
 		if objeto_com_velocidade.has_method("get_velocidade"):
 			var velocidade = objeto_com_velocidade.get_velocidade()
-			
 			var movimento = velocidade * delta
 			
-			# Adiciona o movimento horizontal ao destino
 			target_position.x += movimento.x
-			# TRAVA: Impede o target_position de passar de -4 ou 4 no eixo X
 			target_position.x = clamp(target_position.x, -4.0, 4.0)
 			
 			if not is_moving:
 				global_position = target_position
 	else:
-		# Se ela saiu da baguete sozinha sem pular
 		if estava_na_baguete and not is_moving:
 			alinhar_no_grid()
 
-	# Movimenta o suave de pulo até o destino
 	if is_moving:
 		global_position = global_position.move_toward(target_position, move_speed * delta)
 		
 		if global_position.distance_to(target_position) < 0.01:
 			global_position = target_position
 			is_moving = false
+			checar_se_esta_na_baguete() # Atualiza o estado imediatamente ao pousar
 			checar_pontuacao()
 			
-			# Se ela acabou de aterrissar no chão firme (grama/rua) vinda de uma baguete/picles, crava no grid!
 			if estava_na_baguete and baguete_atual == null:
 				alinhar_no_grid()
+			elif baguete_atual != null:
+				# --- VERIFICA SE O NÓ OU SEUS FILHOS SÃO DO GRUPO PICLES ---
+				var nodo_picles: Node3D = null
+				if baguete_atual.is_in_group("picles"):
+					nodo_picles = baguete_atual
+				else:
+					for child in baguete_atual.get_children():
+						if child.is_in_group("picles"):
+							nodo_picles = child
+							break
+				
+				# Se encontrou o picles, centraliza perfeitamente nele
+				if nodo_picles != null:
+					global_position.x = nodo_picles.global_position.x
+					target_position.x = nodo_picles.global_position.x
 	else:
 		handle_input()
 
@@ -93,14 +98,14 @@ func handle_input():
 	elif Input.is_action_just_pressed("esquerda"):
 		if target_position.x <= -4:
 			direction.x = 0
-		elif baguete_atual != null: # Impede mover para os lados se estiver na baguete/picles
+		elif baguete_atual != null: 
 			direction.x = 0
 		else:
 			direction.x -= 1
 	elif Input.is_action_just_pressed("direita"):
 		if target_position.x >= 4:
 			direction.x = 0
-		elif baguete_atual != null: # Impede mover para os lados se estiver na baguete/picles
+		elif baguete_atual != null: 
 			direction.x = 0
 		else:
 			direction.x += 1
@@ -137,50 +142,41 @@ func alinhar_no_grid():
 	estava_na_baguete = false
 	ultima_baguete_id = null
 
-# --- FUNÇÃO CORRIGIDA PARA IDENTIFICAR PICLES TAMBÉM ---
+# --- NOVA LOGICA BASEADA NA MESMA TOLERÂNCIA DE DISTÂNCIA DO RIO ---
 func checar_se_esta_na_baguete():
-	var space_state = get_world_3d().direct_space_state
-	var origen = global_position + Vector3(0, 0.5, 0)
-	var destino = global_position + Vector3(0, -2.5, 0)
-	var query = PhysicsRayQueryParameters3D.create(origen, destino)
-	query.collide_with_areas = true
-	query.collide_with_bodies = true
-	query.exclude = [get_rid()]
+	var melhor_objeto: Node3D = null
+	var menor_distancia := 1.0 # Tolerância de 1.0 unidade (igual ao rio.gd)
 	
-	var resultado = space_state.intersect_ray(query)
+	var candidatos = []
+	candidatos.append_array(get_tree().get_nodes_in_group("baguete"))
+	candidatos.append_array(get_tree().get_nodes_in_group("picles"))
 	
-	if resultado and resultado.collider:
-		var colisor = resultado.collider
+	for objeto in candidatos:
+		if not is_instance_valid(objeto): continue
 		
-		# Verifica se o colisor ou algum pai dele pertence ao grupo baguete OU picles
-		var e_baguete = false
-		var atual = colisor
+		# Verifica se o objeto está na mesma fileira Z (arredondada) que o player
+		if round(objeto.global_position.z) == round(global_position.z):
+			# Mede a distância apenas no eixo X
+			var dist_x = abs(global_position.x - objeto.global_position.x)
+			if dist_x <= menor_distancia:
+				menor_distancia = dist_x
+				melhor_objeto = objeto
+
+	if melhor_objeto != null:
+		# Sobe a hierarquia para encontrar o nó com o script de velocidade (PathFollow3D)
+		var atual = melhor_objeto
 		while atual != null:
-			if atual.is_in_group("baguete") or atual.is_in_group("picles"):
-				e_baguete = true
-				break
+			if atual.has_method("get_velocidade"):
+				baguete_atual = atual
+				return
 			atual = atual.get_parent()
-			
-		if e_baguete:
-			# Procura qualquer nó na hierarquia que tenha a função get_velocidade()
-			atual = colisor
-			while atual != null:
-				if atual.has_method("get_velocidade"):
-					baguete_atual = atual
-					return atual
-				atual = atual.get_parent()
-				
-			# Caso encontre o grupo mas não ache a função, guarda como fallback
-			atual = colisor
-			while atual != null:
-				if atual.is_in_group("baguete") or atual.is_in_group("picles"):
-					baguete_atual = atual
-					return atual
-				atual = atual.get_parent()
+		
+		baguete_atual = melhor_objeto
+	else:
+		baguete_atual = null
 
-	baguete_atual = null
-
-func die(tipo_de_morte: String = "carro"):
+# Altere a sua função die() antiga por esta versão atualizada:
+func die(tipo_de_morte: String = "carro", por_recuo_tutorial: bool = false):
 	velocity = Vector3.ZERO
 	is_dead = true
 	var tween = create_tween()
@@ -189,6 +185,19 @@ func die(tipo_de_morte: String = "carro"):
 		tween.parallel().tween_property(self, "scale", Vector3(0.2, 0.2, 0.2), 0.4)
 	else:
 		$".".scale.y = 0.2
+		
+	# --- SISTEMA DE CORREÇÃO AUTOMÁTICA DE MENU ---
+	# Espera meio segundo (tempo da animação de morte) antes de congelar a tela
+	await get_tree().create_timer(0.5).timeout
+	
+	var menu = get_tree().get_first_node_in_group("menu_pausa")
+	if menu:
+		if por_recuo_tutorial:
+			# Ativa o menu com os parâmetros especiais que você pediu
+			menu.exibir_game_over("Jogar", "Não pode voltar tiles se não o jogo acaba")
+		else:
+			# Caso contrário, exibe o menu de derrota padrão do jogo
+			menu.exibir_game_over("Reiniciar", "")
 
 func checar_pontuacao():
 	var passos_dados = int(z_inicial - global_position.z)

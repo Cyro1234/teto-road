@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://ck2pow5kg3ggx"]
+
+[ext_resource type="Script" uid="uid://dg21n5f6ofvvy" path="res://scripts/menu_pausa.gd" id="1_yi4s2"]
+
+[node name="Pausa" type="Node3D" unique_id=610118416]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1596589347]
+
+[node name="MenuPausa" type="Control" parent="CanvasLayer" unique_id=337806372]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yi4s2")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/MenuPausa" unique_id=199340475]
+clip_children = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0.003921569, 0.1254902)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MenuPausa" unique_id=850789850]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+alignment = 1
+
+[node name="BotaoRecomecar" type="Button" parent="CanvasLayer/MenuPausa/VBoxContainer" unique_id=1371391006]
+layout_mode = 2
+text = "Reiniciar"
+
+[node name="BotaoMenu" type="Button" parent="CanvasLayer/MenuPausa/VBoxContainer" unique_id=259509973]
+layout_mode = 2
+text = "Menu"

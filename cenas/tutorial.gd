@@ -13,12 +13,17 @@ extends Node3D
 @onready var texto_dialogo: Label = $CanvasLayer/PainelDialogo/TextoDialogo
 @onready var player: CharacterBody3D = $Player
 
+# VARIÁVEIS ADICIONADAS PARA O CONTROLE DE MORTE E TRAVA
+var morte_recuo_habilitada := false
+var maior_linha_alcancada := 0
+
 # Dicionário para guardar as mensagens que já foram exibidas (evita repetir ao andar de volta)
 var dialogos_vistos := {
 	"inicio": false,
 	"rio": false,
 	"rua": false,
-	"picles": false
+	"picles": false,
+	"fim": false
 }
 
 func _ready() -> void:
@@ -28,10 +33,31 @@ func _ready() -> void:
 	$GatilhoRio.body_entered.connect(_on_gatilho_rio_entered)
 	$GatilhoRua.body_entered.connect(_on_gatilho_rua_entered)
 	$GatilhoPicles.body_entered.connect(_on_gatilho_picles_entered)
+	$GatilhoFim.body_entered.connect(_on_gatilho_fim_entered)
 	
 	# Mostra a mensagem inicial do jogo após um curtíssimo frame
 	await get_tree().process_frame
 	mostrar_mensagem("inicio", "Bem-vindo ao Tutorial! Use as teclas de direção para se movimentar e avançar.")
+
+# Altere a sua função _process() antiga por esta:
+func _process(_delta: float) -> void:
+	if player == null or player.is_dead:
+		return
+		
+	# --- MECÂNICA 1: IMPEDIR O JOGADOR DE AVANAR ALÉM DE Z = -13 ---
+	if player.target_position.z < -13:
+		player.target_position.z = -13
+		
+	# --- MECÂNICA 2: SE VOLTAR 4 POSIÇÕES APÓS O FIM, MORRE ---
+	if morte_recuo_habilitada:
+		var linha_atual_player = int(abs(player.global_position.z))
+		
+		if linha_atual_player > maior_linha_alcancada:
+			maior_linha_alcancada = linha_atual_player
+			
+		if (maior_linha_alcancada - linha_atual_player) >= 4:
+			# --- CORREÇÃO: Avisa o script do player que foi a morte por recuo do tutorial! ---
+			player.die("carro", true)
 
 func _input(event: InputEvent) -> void:
 	# Se o painel estiver visível e o jogador apertar para avançar (Ex: Enter, Espaço ou clique)
@@ -91,3 +117,11 @@ func _on_gatilho_rua_entered(body: Node) -> void:
 func _on_gatilho_picles_entered(body: Node) -> void:
 	if body.is_in_group("player"):
 		mostrar_mensagem("picles", "Picles podem aparecer no rio para te auxiliar a passar das baguetes!")
+
+func _on_gatilho_fim_entered(body: Node) -> void:
+	if body.is_in_group("player"):
+		mostrar_mensagem("fim", "Parabéns, esse é o final do tutorial, volte para trás para iniciar o jogo!")
+		# --- MODIFICAÇÃO AQUI ---
+		# Habilita a morte por recuo e salva a marca inicial baseada na posição do gatilho
+		morte_recuo_habilitada = true
+		maior_linha_alcancada = int(abs(player.global_position.z))

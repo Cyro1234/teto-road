@@ -33,8 +33,11 @@ func _process(_delta: float) -> void:
 
 	if player_no_rio and not player_no_rio.is_dead:
 		if not player_no_rio.is_moving:
-			if not esta_na_baguete(player_no_rio):
-				player_no_rio.die("agua")
+			# --- TRAVA DE SEGURANÇA CONTRA OVERLAP ---
+			# O jogador só morre se a linha Z dele for idêntica à linha Z deste rio!
+			if round(player_no_rio.global_position.z) == round(global_position.z):
+				if not esta_na_baguete(player_no_rio):
+					player_no_rio.die("agua")
 				
 func pegar_baguete(player: CharacterBody3D) -> Node3D:
 	var corpos_no_rio = get_overlapping_bodies()

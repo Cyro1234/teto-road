@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://brhmppi6j3u3a" path="res://scripts/camera_3d.gd" id="1_0wk67"]
 [ext_resource type="Script" uid="uid://bya7usig2q1d5" path="res://cenas/tutorial.gd" id="1_nn0l7"]
 [ext_resource type="Script" uid="uid://cscnmqne5fp8h" path="res://scripts/input.gd" id="4_am7q7"]
+[ext_resource type="PackedScene" uid="uid://ck2pow5kg3ggx" path="res://cenas/menu_pausa.tscn" id="5_0wk67"]
 [ext_resource type="ArrayMesh" uid="uid://cq0umd2grveis" path="res://assets/teto.vox" id="5_n4wnb"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_cgksj"]
@@ -65,21 +66,33 @@ offset_right = 40.0
 offset_bottom = 23.0
 
 [node name="GatilhoRio" type="Area3D" parent="." unique_id=697984942]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GatilhoRio" unique_id=997564551]
-transform = Transform3D(9, 0, 0, 0, 1.865, 0, 0, 0, 0.1, 0, 0, -3)
+transform = Transform3D(9, 0, 0, 0, 1.865, 0, 0, 0, 0.1, 0, 0, 0)
 shape = SubResource("BoxShape3D_nn0l7")
 
 [node name="GatilhoRua" type="Area3D" parent="." unique_id=187491842]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GatilhoRua" unique_id=710593124]
-transform = Transform3D(9, 0, 0, 0, 1.865, 0, 0, 0, 0.1, 0, 0, -1)
+transform = Transform3D(9, 0, 0, 0, 1.865, 0, 0, 0, 0.1, 0, 0, 0)
 shape = SubResource("BoxShape3D_nn0l7")
 
 [node name="GatilhoPicles" type="Area3D" parent="." unique_id=125375442]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GatilhoPicles" unique_id=531080229]
-transform = Transform3D(9, 0, 0, 0, 1.865, 0, 0, 0, 0.1, 0, 0, -5)
+transform = Transform3D(9, 0, 0, 0, 1.865, 0, 0, 0, 0.1, 0, 0, 0)
 shape = SubResource("BoxShape3D_nn0l7")
+
+[node name="GatilhoFim" type="Area3D" parent="." unique_id=1704417949]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -13)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GatilhoFim" unique_id=1387891299]
+transform = Transform3D(9, 0, 0, 0, 1.865, 0, 0, 0, 0.1, 0, 0, 0)
+shape = SubResource("BoxShape3D_nn0l7")
+
+[node name="Pausa" parent="." unique_id=610118416 instance=ExtResource("5_0wk67")]
 
 [connection signal="pressed" from="CanvasLayer/Button" to="Camera3D" method="_on_button_pressed"]

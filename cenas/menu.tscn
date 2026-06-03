@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://uxnbikrti6ff"]
 
-[ext_resource type="Script" uid="uid://uhjme43c2aw6" path="res://scripts/menu.gd" id="1_menu_script"]
+[ext_resource type="Script" path="res://scripts/menu.gd" id="1_menu_script"]
 
 [node name="Menu" type="Node3D" unique_id=954279062]
 script = ExtResource("1_menu_script")
@@ -34,6 +34,12 @@ offset_bottom = 40.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/VBoxContainer" unique_id=584945243]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "TETO ROAD"
+horizontal_alignment = 1
 
 [node name="BtnJogar" type="Button" parent="CanvasLayer/Control/VBoxContainer" unique_id=849481178]
 layout_mode = 2

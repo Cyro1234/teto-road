@@ -18,6 +18,9 @@ var proximo_z := 0
 var ultimo_tipo := "grama"
 var player_nodo: CharacterBody3D = null
 
+# CONTROLE DE GAME DESIGN: Guarda a direção do último rio gerado para evitar padrões impossíveis
+var ultimo_rio_foi_invertido := false 
+
 # Variáveis para a mecânica de morte por recuo
 var maior_linha_alcancada := 0 
 # Guarda o Z mais distante (em coordenadas positivas de passos)
@@ -33,30 +36,23 @@ func _ready() -> void:
 	
 	# Conecta o sinal do jogador para atualizar a interface ---
 	if player_nodo != null:
-		# Avisa o jogo para rodar a função atualizar_texto_score sempre que o sinal for emitido
 		player_nodo.pontuacao_atualizada.connect(atualizar_texto_score)
 	
 	# 1. Configura o ponto inicial da construção lá atrás no Z = 8 positivo
 	proximo_z = 8
 	
 	# --- BLOCO 1: Gramas Escuras (Z = 8, 7, 6, 5) ---
-	# Rodar 4 vezes faz o proximo_z ir de 8 até 5
 	for i in range(4):
 		spawnar_proxima_faixa_especifica(cena_grama_escura)
 		
 	# --- BLOCO 2: Gramas Normais de Recuo e Spawn (Z = 4, 3, 2, 1, 0) ---
-	# Rodar 5 vezes faz o proximo_z construir no 4, 3, 2, 1 e no 0 (onde o player nasce)
 	for i in range(5):
 		spawnar_proxima_faixa_especifica(cena_grama)
 		
 	# --- BLOCO 3: Gramas Normais da Frente (Z = -1, -2, -3, -4, -5) ---
-	# Como você pediu grama no -1, -3 e -5, para manter o grid contínuo sem buracos,
-	# geramos as gramas normais do -1 até o -5 (Z = -1, -2, -3, -4, -5)
-	# Rodar 5 vezes faz o proximo_z ir de -1 até -5
 	for i in range(5):
 		spawnar_proxima_faixa_especifica(cena_grama)
 		
-	# Neste ponto exato, o proximo_z virou -6 automaticamente!
 	# 2. Preenche o resto da tela com o mapa infinito a partir de Z = -6, -7...
 	for i in range(quantidade_faixas_na_tela):
 		gerar_logica_procedural_faixa()
@@ -65,31 +61,25 @@ func _process(_delta: float) -> void:
 	if player_nodo == null or player_nodo.is_dead:
 		return
 		
-	# No Crossy Road o jogador anda para o Z negativo.
-	# Vamos converter a posição atual dele para um número positivo de "linhas andadas"
 	var linha_atual_player = int(abs(player_nodo.global_position.z))
 	
 	# --- MECÂNICA 1: GERAÇÃO INFINITA E LIMPEZA ---
-	# Se o jogador passou da metade das faixas visíveis, gera uma nova na frente e apaga a mais antiga atrás
 	if linha_atual_player > (proximo_z_para_linha() - quantidade_faixas_na_tela):
 		gerar_logica_procedural_faixa()
 		
-		# Se passou do limite de faixas na tela, limpa a que ficou muito lá atrás
 		if faixas_vivas.size() > quantidade_faixas_na_tela + 10:
 			var faixa_antiga = faixas_vivas.pop_front()
 			if is_instance_valid(faixa_antiga):
-				faixa_antiga.queue_free() # Some do mapa e libera memória!
+				faixa_antiga.queue_free()
 
 	# --- MECÂNICA 2: SE TENTAR VOLTAR 5 PASSOS, MORRE ---
-	# Atualiza o recorde se ele avançou mais do que nunca
 	if linha_atual_player > maior_linha_alcancada:
 		maior_linha_alcancada = linha_atual_player
 		
-	# Se a diferença entre o recorde dele e onde ele está agora for maior ou igual a 5, tchau!
 	if (maior_linha_alcancada - linha_atual_player) >= limite_passos_atras:
-		player_nodo.die("carro") # Usa a animação de ser esmagado/parado
+		player_nodo.die("carro")
 
-# Define qual tipo de faixa vai vir com base na última (Sua lógica do Crossy Road)
+# Define qual tipo de faixa vai vir com base na última
 func gerar_logica_procedural_faixa() -> void:
 	var cena_escolhida: PackedScene = null
 	var inverter_rua = false
@@ -100,6 +90,7 @@ func gerar_logica_procedural_faixa() -> void:
 			var escolha = randi() % 2
 			if escolha == 0:
 				cena_escolhida = cena_rio_invertido if sorteio_inversao else cena_rio
+				ultimo_rio_foi_invertido = sorteio_inversao # Salva se o primeiro rio começou invertido
 				ultimo_tipo = "rio"
 			else:
 				cena_escolhida = cena_rua
@@ -109,7 +100,6 @@ func gerar_logica_procedural_faixa() -> void:
 		"rio":
 			var escolha = randi() % 3
 			if escolha == 0:
-				# Para continuar em rio, a PRÓXIMA obrigatoriamente tem que ser um picles!
 				cena_escolhida = cena_rio_picles
 				ultimo_tipo = "picles"
 			elif escolha == 1:
@@ -133,11 +123,13 @@ func gerar_logica_procedural_faixa() -> void:
 		"picles":
 			var escolha = randi() % 2
 			if escolha == 0:
-				# Como já veio um picles obrigatório, agora sim liberamos o próximo rio normal/invertido
-				cena_escolhida = cena_rio_invertido if sorteio_inversao else cena_rio
+				# --- CORREÇÃO DE GAME DESIGN: ALTERNÂNCIA FORÇADA ---
+				# O próximo rio TEM que ser o oposto do rio anterior ao picles
+				var inverter_rio = not ultimo_rio_foi_invertido
+				cena_escolhida = cena_rio_invertido if inverter_rio else cena_rio
+				ultimo_rio_foi_invertido = inverter_rio # Atualiza o histórico com a nova direção
 				ultimo_tipo = "rio"
 			else:
-				# Ou sai do rio e volta para a grama firme
 				cena_escolhida = cena_grama
 				ultimo_tipo = "grama"
 
@@ -156,8 +148,8 @@ func spawnar_faixa_na_posicao(cena: PackedScene, inverter: bool) -> void:
 	if inverter:
 		nova_faixa.global_rotation.y = deg_to_rad(180)
 		
-	faixas_vivas.append(nova_faixa) # Guarda a referência para poder apagar depois
-	proximo_z -= 1 # Próxima faixa vai ser colocada mais para frente
+	faixas_vivas.append(nova_faixa)
+	proximo_z -= 1
 
 # Helper para spawnar as gramas fixas do início do grid
 func spawnar_proxima_faixa_especifica(cena: PackedScene) -> void:
@@ -176,7 +168,5 @@ func _on_button_pressed() -> void:
 	
 # Função que escreve a pontuação na tela ---
 func atualizar_texto_score(nova_pontuacao: int) -> void:
-	# Verificamos se o nó existe para evitar erros
 	if score_label != null:
-		# Transforma o número inteiro (int) em um texto (String) para colocar no Label
 		score_label.text = str(nova_pontuacao)
