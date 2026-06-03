@@ -37,7 +37,6 @@ func _process(_delta: float) -> void:
 				player_no_rio.die("agua")
 				
 func pegar_baguete(player: CharacterBody3D) -> Node3D:
-
 	var corpos_no_rio = get_overlapping_bodies()
 	var areas_no_rio = get_overlapping_areas()
 
@@ -46,21 +45,22 @@ func pegar_baguete(player: CharacterBody3D) -> Node3D:
 	tudo_no_rio.append_array(areas_no_rio)
 
 	for objeto in tudo_no_rio:
-
-		if objeto.is_in_group("baguete") or (objeto.get_parent() and objeto.get_parent().is_in_group("baguete")):
+		if objeto.is_in_group("baguete") or (objeto.get_parent() and objeto.get_parent().is_in_group("baguete")) or objeto.is_in_group("picles") or (objeto.get_parent() and objeto.get_parent().is_in_group("picles")):
 
 			var dist_player = Vector2(player.global_position.x, player.global_position.z)
 			var dist_baguete = Vector2(objeto.global_position.x, objeto.global_position.z)
-
 			var distancia = dist_player.distance_to(dist_baguete)
 
-			if distancia < 1.8:
+			var e_picles = objeto.is_in_group("picles") or (objeto.get_parent() and objeto.get_parent().is_in_group("picles"))
+
+			var distancia_limite = 1.0
+
+			if distancia <= distancia_limite:
 				return objeto
 
 	return null
 
 func esta_na_baguete(player: CharacterBody3D) -> bool:
-
 	var corpos_no_rio = get_overlapping_bodies()
 	var areas_no_rio = get_overlapping_areas()
 
@@ -69,16 +69,17 @@ func esta_na_baguete(player: CharacterBody3D) -> bool:
 	tudo_no_rio.append_array(areas_no_rio)
 
 	for objeto in tudo_no_rio:
+		if objeto.is_in_group("baguete") or (objeto.get_parent() and objeto.get_parent().is_in_group("baguete")) or objeto.is_in_group("picles") or (objeto.get_parent() and objeto.get_parent().is_in_group("picles")):
 
-		if objeto.is_in_group("baguete") or (objeto.get_parent() and objeto.get_parent().is_in_group("baguete")):
-
-		
 			var dist_player = Vector2(player.global_position.x, player.global_position.z)
 			var dist_baguete = Vector2(objeto.global_position.x, objeto.global_position.z)
-
 			var distancia = dist_player.distance_to(dist_baguete)
 
-			if distancia < 1:
+			var e_picles = objeto.is_in_group("picles") or (objeto.get_parent() and objeto.get_parent().is_in_group("picles"))
+
+			var distancia_limite = 1.0
+
+			if distancia <= distancia_limite:
 				return true
 
 	return false

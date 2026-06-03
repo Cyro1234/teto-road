@@ -19,7 +19,8 @@ var ultimo_tipo := "grama"
 var player_nodo: CharacterBody3D = null
 
 # Variáveis para a mecânica de morte por recuo
-var maior_linha_alcancada := 0 # Guarda o Z mais distante (em coordenadas positivas de passos)
+var maior_linha_alcancada := 0 
+# Guarda o Z mais distante (em coordenadas positivas de passos)
 
 # Referência para o texto de pontuação na tela ---
 @onready var score_label = $CanvasLayer/ScoreLabel
@@ -56,15 +57,15 @@ func _ready() -> void:
 		spawnar_proxima_faixa_especifica(cena_grama)
 		
 	# Neste ponto exato, o proximo_z virou -6 automaticamente!
-	
 	# 2. Preenche o resto da tela com o mapa infinito a partir de Z = -6, -7...
 	for i in range(quantidade_faixas_na_tela):
 		gerar_logica_procedural_faixa()
+
 func _process(_delta: float) -> void:
 	if player_nodo == null or player_nodo.is_dead:
 		return
 		
-	# No Crossy Road o jogador anda para o Z negativo. 
+	# No Crossy Road o jogador anda para o Z negativo.
 	# Vamos converter a posição atual dele para um número positivo de "linhas andadas"
 	var linha_atual_player = int(abs(player_nodo.global_position.z))
 	
@@ -78,7 +79,7 @@ func _process(_delta: float) -> void:
 			var faixa_antiga = faixas_vivas.pop_front()
 			if is_instance_valid(faixa_antiga):
 				faixa_antiga.queue_free() # Some do mapa e libera memória!
-				
+
 	# --- MECÂNICA 2: SE TENTAR VOLTAR 5 PASSOS, MORRE ---
 	# Atualiza o recorde se ele avançou mais do que nunca
 	if linha_atual_player > maior_linha_alcancada:
@@ -107,16 +108,14 @@ func gerar_logica_procedural_faixa() -> void:
 				
 		"rio":
 			var escolha = randi() % 3
-			#if escolha == 0:
-				#cena_escolhida = cena_rio_invertido if sorteio_inversao else cena_rio
-				#ultimo_tipo = "rio"
-			#elif escolha == 1:
-				#cena_escolhida = cena_rio_picles
-				#ultimo_tipo = "rio"
 			if escolha == 0:
+				# Para continuar em rio, a PRÓXIMA obrigatoriamente tem que ser um picles!
+				cena_escolhida = cena_rio_picles
+				ultimo_tipo = "picles"
+			elif escolha == 1:
 				cena_escolhida = cena_rua
 				inverter_rua = sorteio_inversao
-				ultimo_tipo = "picles"
+				ultimo_tipo = "rua"
 			else:
 				cena_escolhida = cena_grama
 				ultimo_tipo = "grama"
@@ -130,15 +129,17 @@ func gerar_logica_procedural_faixa() -> void:
 			else:
 				cena_escolhida = cena_grama
 				ultimo_tipo = "grama"
+
 		"picles":
 			var escolha = randi() % 2
 			if escolha == 0:
-				cena_escolhida = cena_rio_picles
+				# Como já veio um picles obrigatório, agora sim liberamos o próximo rio normal/invertido
+				cena_escolhida = cena_rio_invertido if sorteio_inversao else cena_rio
 				ultimo_tipo = "rio"
 			else:
+				# Ou sai do rio e volta para a grama firme
 				cena_escolhida = cena_grama
 				ultimo_tipo = "grama"
-		
 
 	spawnar_faixa_na_posicao(cena_escolhida, inverter_rua)
 

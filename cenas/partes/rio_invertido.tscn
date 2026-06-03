@@ -14,7 +14,7 @@ albedo_color = Color(0.5372549, 0.8117647, 0.9411765, 1)
 
 [sub_resource type="Curve3D" id="Curve3D_76xyp"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 26, 0, 0),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 26, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
@@ -43,7 +43,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0, 0)
 curve = SubResource("Curve3D_76xyp")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D" unique_id=918958267]
-transform = Transform3D(0, 0, -1, 0, 1.0000011, 0, 0.99999756, 0, 0, 0, 0, 0)
+transform = Transform3D(0, 0, 1, 0, 1.0000011, 0, -0.99999756, 0, 0, 26, 0, 0)
 rotation_mode = 4
 script = ExtResource("1_ll5nn")
 

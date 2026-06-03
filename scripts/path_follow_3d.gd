@@ -35,4 +35,4 @@ func _physics_process(delta: float) -> void:
 
 # player chama isso
 func get_velocidade() -> Vector3:
-	return Vector3(velocidade_atual, 0, 0)
+	return velocidade_vetor

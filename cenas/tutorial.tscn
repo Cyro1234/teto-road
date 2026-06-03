@@ -12,6 +12,8 @@ lightmap_size_hint = Vector2i(14, 21)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rwowx"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_nn0l7"]
+
 [node name="Node3D" type="Node3D" unique_id=1596024861]
 script = ExtResource("1_nn0l7")
 
@@ -49,5 +51,35 @@ shape = SubResource("BoxShape3D_rwowx")
 offset_right = 8.0
 offset_bottom = 8.0
 text = "Restart"
+
+[node name="PainelDialogo" type="Panel" parent="CanvasLayer" unique_id=881912966]
+visible = false
+offset_left = 141.0
+offset_top = 182.0
+offset_right = 181.0
+offset_bottom = 222.0
+
+[node name="TextoDialogo" type="Label" parent="CanvasLayer/PainelDialogo" unique_id=1757990470]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="GatilhoRio" type="Area3D" parent="." unique_id=697984942]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GatilhoRio" unique_id=997564551]
+transform = Transform3D(9, 0, 0, 0, 1.865, 0, 0, 0, 0.1, 0, 0, -3)
+shape = SubResource("BoxShape3D_nn0l7")
+
+[node name="GatilhoRua" type="Area3D" parent="." unique_id=187491842]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GatilhoRua" unique_id=710593124]
+transform = Transform3D(9, 0, 0, 0, 1.865, 0, 0, 0, 0.1, 0, 0, -1)
+shape = SubResource("BoxShape3D_nn0l7")
+
+[node name="GatilhoPicles" type="Area3D" parent="." unique_id=125375442]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GatilhoPicles" unique_id=531080229]
+transform = Transform3D(9, 0, 0, 0, 1.865, 0, 0, 0, 0.1, 0, 0, -5)
+shape = SubResource("BoxShape3D_nn0l7")
 
 [connection signal="pressed" from="CanvasLayer/Button" to="Camera3D" method="_on_button_pressed"]
