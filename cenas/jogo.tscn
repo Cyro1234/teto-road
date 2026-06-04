@@ -8,6 +8,9 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dtkcs"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_dmxwg"]
+font_size = 80
+
 [node name="Node3D" type="Node3D" unique_id=1250393145]
 script = ExtResource("1_1frua")
 
@@ -35,12 +38,20 @@ shape = SubResource("BoxShape3D_dtkcs")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1350324725]
 
-[node name="ScoreLabel" type="Label" parent="CanvasLayer" unique_id=1019707027]
-offset_left = 1103.0
-offset_top = 1.0
-offset_right = 1159.0
-offset_bottom = 60.0
-theme_override_font_sizes/font_size = 32
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer" unique_id=1768130041]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -233.0
+offset_bottom = 110.0
+grow_horizontal = 0
+theme_override_constants/margin_right = 35
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer/MarginContainer" unique_id=1019707027]
+layout_mode = 2
+theme_override_font_sizes/font_size = 80
 text = "0"
+label_settings = SubResource("LabelSettings_dmxwg")
+horizontal_alignment = 2
 
 [node name="Pausa" parent="." unique_id=610118416 instance=ExtResource("5_dmxwg")]

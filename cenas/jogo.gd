@@ -26,7 +26,7 @@ var maior_linha_alcancada := 0
 # Guarda o Z mais distante (em coordenadas positivas de passos)
 
 # Referência para o texto de pontuação na tela ---
-@onready var score_label = $CanvasLayer/ScoreLabel
+@onready var score_label = $CanvasLayer/MarginContainer/ScoreLabel
 
 func _ready() -> void:
 	randomize()
