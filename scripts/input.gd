@@ -2,6 +2,10 @@ extends CharacterBody3D
 
 @export var move_speed := 10
 @onready var altura_inicial_y: float = global_position.y
+@onready var animacao: AnimationPlayer = $AnimationPlayer
+@onready var esmaga: AudioStreamPlayer3D = $esmaga
+@onready var pulo: AudioStreamPlayer3D = $pulo
+@onready var agua_morte: AudioStreamPlayer3D = $agua_morte
 
 var rotation_speed = 2.0
 var target_rotation_y := 0.0
@@ -38,6 +42,7 @@ func _physics_process(delta):
 		estava_na_baguete = true
 		if baguete_atual != null:
 			ultima_baguete_id = baguete_atual
+			
 		
 		var objeto_com_velocidade = baguete_para_mover
 		if not objeto_com_velocidade.has_method("get_velocidade") and objeto_com_velocidade.get_parent():
@@ -90,25 +95,43 @@ func handle_input():
 	
 	if Input.is_action_just_pressed("cima"):
 		direction.z -= 1
+		animacao.play("pulo")
+		pulo.play()
 	elif Input.is_action_just_pressed("baixo"):
 		if target_position.z >= 4:
 			direction.x = 0
+			animacao.play("pulo")
+			pulo.play()
 		else:
 			direction.z += 1
+			animacao.play("pulo")
+			pulo.play()
 	elif Input.is_action_just_pressed("esquerda"):
 		if target_position.x <= -4:
 			direction.x = 0
+			animacao.play("pulo")
+			pulo.play()
 		elif baguete_atual != null: 
 			direction.x = 0
+			animacao.play("pulo")
+			pulo.play()
 		else:
 			direction.x -= 1
+			animacao.play("pulo")
+			pulo.play()
 	elif Input.is_action_just_pressed("direita"):
 		if target_position.x >= 4:
 			direction.x = 0
+			animacao.play("pulo")
+			pulo.play()
 		elif baguete_atual != null: 
 			direction.x = 0
+			animacao.play("pulo")
+			pulo.play()
 		else:
 			direction.x += 1
+			animacao.play("pulo")
+			pulo.play()
 			
 	if direction != Vector3.ZERO:
 		if estava_na_baguete:
@@ -183,12 +206,15 @@ func die(tipo_de_morte: String = "carro", por_recuo_tutorial: bool = false):
 	if tipo_de_morte == "agua":
 		tween.tween_property(self, "global_position:y", global_position.y - 1.2, 0.4)
 		tween.parallel().tween_property(self, "scale", Vector3(0.2, 0.2, 0.2), 0.4)
+		agua_morte.play()
 	else:
 		$".".scale.y = 0.2
+		esmaga.play()
+		
 		
 	# --- SISTEMA DE CORREÇÃO AUTOMÁTICA DE MENU ---
 	# Espera meio segundo (tempo da animação de morte) antes de congelar a tela
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(1.5).timeout
 	
 	var menu = get_tree().get_first_node_in_group("menu_pausa")
 	if menu:

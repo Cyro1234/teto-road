@@ -44,5 +44,5 @@ transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 0, 0, 0)
 rotation_mode = 4
 script = ExtResource("1_mnhic")
 
-[node name="Node3D" parent="Path3D/PathFollow3D" unique_id=29113295 instance=ExtResource("2_juakf")]
-transform = Transform3D(-0.03, 0, -2.6226832e-09, 0, 0.03, 0, 2.6226832e-09, 0, -0.03, 0, 0, 0)
+[node name="carro" parent="Path3D/PathFollow3D" unique_id=29113295 instance=ExtResource("2_juakf")]
+transform = Transform3D(-0.03, 0, 2.6226832e-09, 0, 0.03, 0, -2.6226832e-09, 0, -0.03, 0, 0, 0)

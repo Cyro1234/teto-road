@@ -32,6 +32,7 @@ func _physics_process(delta: float) -> void:
 			velocidade_minima,
 			velocidade_maxima
 		)
+		
 
 # player chama isso
 func get_velocidade() -> Vector3:

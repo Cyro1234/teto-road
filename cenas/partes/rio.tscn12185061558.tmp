@@ -22,6 +22,8 @@ point_count = 2
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pe580"]
 
+[sub_resource type="GDScript" id="GDScript_cumx8"]
+
 [node name="Node3D" type="Node3D" unique_id=617762356]
 
 [node name="esquerda" type="MeshInstance3D" parent="." unique_id=1988592742]
@@ -58,5 +60,7 @@ script = ExtResource("3_7qiak")
 transform = Transform3D(9, 0, 0, 0, 1.865, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_pe580")
 
-[node name="agua" type="AudioStreamPlayer3D" parent="Rio" unique_id=482958306]
+[node name="agua" type="AudioStreamPlayer3D" parent="Rio" unique_id=1764037911]
+transform = Transform3D(0, 0, 2.8985507, 0, 2.8985507, 0, -2.8985507, 0, 0, 0, 0.77757627, -37.68116)
 stream = ExtResource("4_cumx8")
+script = SubResource("GDScript_cumx8")

@@ -1,6 +1,7 @@
 extends Area3D
 
 var player_no_rio : CharacterBody3D = null
+@onready var agua: AudioStreamPlayer3D = $agua
 
 var baguete_atual : Node3D = null
 
@@ -46,18 +47,18 @@ func pegar_baguete(player: CharacterBody3D) -> Node3D:
 	var tudo_no_rio = []
 	tudo_no_rio.append_array(corpos_no_rio)
 	tudo_no_rio.append_array(areas_no_rio)
-
+	
+	
+	
 	for objeto in tudo_no_rio:
 		if objeto.is_in_group("baguete") or (objeto.get_parent() and objeto.get_parent().is_in_group("baguete")) or objeto.is_in_group("picles") or (objeto.get_parent() and objeto.get_parent().is_in_group("picles")):
-
+			agua.play()
 			var dist_player = Vector2(player.global_position.x, player.global_position.z)
 			var dist_baguete = Vector2(objeto.global_position.x, objeto.global_position.z)
 			var distancia = dist_player.distance_to(dist_baguete)
 
-			var e_picles = objeto.is_in_group("picles") or (objeto.get_parent() and objeto.get_parent().is_in_group("picles"))
-
 			var distancia_limite = 1.0
-
+			
 			if distancia <= distancia_limite:
 				return objeto
 
@@ -70,15 +71,14 @@ func esta_na_baguete(player: CharacterBody3D) -> bool:
 	var tudo_no_rio = []
 	tudo_no_rio.append_array(corpos_no_rio)
 	tudo_no_rio.append_array(areas_no_rio)
-
+	
+	
 	for objeto in tudo_no_rio:
 		if objeto.is_in_group("baguete") or (objeto.get_parent() and objeto.get_parent().is_in_group("baguete")) or objeto.is_in_group("picles") or (objeto.get_parent() and objeto.get_parent().is_in_group("picles")):
 
 			var dist_player = Vector2(player.global_position.x, player.global_position.z)
 			var dist_baguete = Vector2(objeto.global_position.x, objeto.global_position.z)
 			var distancia = dist_player.distance_to(dist_baguete)
-
-			var e_picles = objeto.is_in_group("picles") or (objeto.get_parent() and objeto.get_parent().is_in_group("picles"))
 
 			var distancia_limite = 1.0
 

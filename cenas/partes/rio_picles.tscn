@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://caibbxicyi27y" path="res://scripts/path_follow_picles.gd" id="1_yj6s2"]
 [ext_resource type="PackedScene" uid="uid://bwfmd5g62wbnl" path="res://cenas/objetos/picles.tscn" id="2_yj6s2"]
+[ext_resource type="AudioStream" uid="uid://c4v2dotvbjuh7" path="res://assets/agua.mp3" id="3_khlb4"]
 [ext_resource type="Script" uid="uid://v3s76yqcvu6f" path="res://scripts/rio.gd" id="3_x65wa"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_xi0kq"]
@@ -56,6 +57,9 @@ script = ExtResource("3_x65wa")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Rio" unique_id=203583095]
 transform = Transform3D(9, 0, 0, 0, 1.865, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_j2p1k")
+
+[node name="agua" type="AudioStreamPlayer3D" parent="Rio" unique_id=1994789217]
+stream = ExtResource("3_khlb4")
 
 [node name="Path3D2" type="Path3D" parent="." unique_id=1959704351]
 curve = SubResource("Curve3D_jtw71")

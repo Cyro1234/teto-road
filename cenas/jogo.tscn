@@ -5,8 +5,43 @@
 [ext_resource type="ArrayMesh" uid="uid://cq0umd2grveis" path="res://assets/teto.vox" id="2_1frua"]
 [ext_resource type="Script" uid="uid://brhmppi6j3u3a" path="res://scripts/camera_3d.gd" id="2_bkotw"]
 [ext_resource type="PackedScene" uid="uid://ck2pow5kg3ggx" path="res://cenas/menu_pausa.tscn" id="5_dmxwg"]
+[ext_resource type="AudioStream" uid="uid://dnifikcpkmxyh" path="res://assets/esmaga.mp3" id="5_dtkcs"]
+[ext_resource type="AudioStream" uid="uid://c0ejnviyui0dy" path="res://assets/pulo.mp3" id="6_srya6"]
+[ext_resource type="AudioStream" uid="uid://fgl8r5i4cya5" path="res://assets/agua_morte.mp3" id="7_v6mw0"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_dtkcs"]
+lightmap_size_hint = Vector2i(14, 21)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_srya6"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dtkcs"]
+
+[sub_resource type="Animation" id="Animation_dmxwg"]
+length = 0.001
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player/Teto")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, -0.010241702, 0)
+
+[sub_resource type="Animation" id="Animation_dtkcs"]
+resource_name = "pulo"
+length = 0.16666667
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Player/Teto")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0.033333335, 1, 0, -0.010241702, 0, 0.1, 1, 0, 0.2187622, 0, 0.16666667, 1, 0, -0.010241702, 0)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_srya6"]
+_data = {
+&"RESET": SubResource("Animation_dmxwg"),
+&"pulo": SubResource("Animation_dtkcs")
+}
 
 [sub_resource type="LabelSettings" id="LabelSettings_dmxwg"]
 font_size = 80
@@ -32,9 +67,31 @@ script = ExtResource("1_32vai")
 transform = Transform3D(-0.245, 0, -2.141858e-08, 0, 0.245, 0, 2.141858e-08, 0, -0.245, 0, -0.010241702, 0)
 mesh = ExtResource("2_1frua")
 
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player" unique_id=691178057]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+visible = false
+mesh = SubResource("BoxMesh_dtkcs")
+surface_material_override/0 = SubResource("StandardMaterial3D_srya6")
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=767125159]
 transform = Transform3D(0.345, 0, 0, 0, 0.345, 0, 0, 0, 0.345, 0, 0.13736914, 0)
 shape = SubResource("BoxShape3D_dtkcs")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player" unique_id=1157004419]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_srya6")
+
+[node name="AudioListener3D" type="AudioListener3D" parent="Player" unique_id=26982816]
+
+[node name="esmaga" type="AudioStreamPlayer3D" parent="Player" unique_id=1178288885]
+stream = ExtResource("5_dtkcs")
+
+[node name="pulo" type="AudioStreamPlayer3D" parent="Player" unique_id=1608383260]
+stream = ExtResource("6_srya6")
+max_db = -20.0
+
+[node name="agua_morte" type="AudioStreamPlayer3D" parent="Player" unique_id=2049040700]
+stream = ExtResource("7_v6mw0")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1350324725]
 
