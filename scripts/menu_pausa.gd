@@ -4,6 +4,10 @@ extends Control
 @onready var botao_recomecar: Button = find_child("BotaoRecomecar")
 @onready var botao_menu: Button = find_child("BotaoMenu")
 @onready var vbox: VBoxContainer = find_child("VBoxContainer")
+@onready var sad: AudioStreamPlayer3D = $sad
+@onready var audio_listener_3d: AudioListener3D = $AudioListener3D
+
+
 
 var aviso_label: Label = null
 var transitar_para_jogo := false
@@ -47,6 +51,8 @@ func despausar_jogo() -> void:
 
 # --- CONFIGURA A TELA DE GAME OVER / FIM DE JOGO ---
 func exibir_game_over(texto_botao: String = "Reiniciar", texto_aviso: String = "") -> void:
+	audio_listener_3d.make_current()
+	sad.play()
 	botao_recomecar.text = texto_botao
 	
 	# --- CORREÇÃO: Ativa a transição para o jogo se o texto do botão for "Jogar" ---

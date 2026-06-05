@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://ck2pow5kg3ggx"]
 
 [ext_resource type="Script" uid="uid://dg21n5f6ofvvy" path="res://scripts/menu_pausa.gd" id="1_yi4s2"]
+[ext_resource type="AudioStream" uid="uid://c826gbvb206y4" path="res://assets/sad.mp3" id="2_si6cd"]
 
 [node name="Pausa" type="Node3D" unique_id=610118416]
 
@@ -48,3 +49,9 @@ text = "Reiniciar"
 [node name="BotaoMenu" type="Button" parent="CanvasLayer/MenuPausa/VBoxContainer" unique_id=259509973]
 layout_mode = 2
 text = "Menu"
+
+[node name="sad" type="AudioStreamPlayer3D" parent="CanvasLayer/MenuPausa" unique_id=104481319]
+stream = ExtResource("2_si6cd")
+max_db = -5.0
+
+[node name="AudioListener3D" type="AudioListener3D" parent="CanvasLayer/MenuPausa" unique_id=1297881942]

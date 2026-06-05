@@ -81,6 +81,7 @@ root_node = NodePath("../..")
 libraries/ = SubResource("AnimationLibrary_0wk67")
 
 [node name="AudioListener3D" type="AudioListener3D" parent="Player" unique_id=687850546]
+current = true
 
 [node name="esmaga" type="AudioStreamPlayer3D" parent="Player" unique_id=114868334]
 stream = ExtResource("5_xuns8")

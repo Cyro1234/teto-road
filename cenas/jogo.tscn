@@ -8,6 +8,8 @@
 [ext_resource type="AudioStream" uid="uid://dnifikcpkmxyh" path="res://assets/esmaga.mp3" id="5_dtkcs"]
 [ext_resource type="AudioStream" uid="uid://c0ejnviyui0dy" path="res://assets/pulo.mp3" id="6_srya6"]
 [ext_resource type="AudioStream" uid="uid://fgl8r5i4cya5" path="res://assets/agua_morte.mp3" id="7_v6mw0"]
+[ext_resource type="AudioStream" uid="uid://df7i7q5rkibij" path="res://assets/fukkireta.mp3" id="9_s5cfb"]
+[ext_resource type="Script" uid="uid://babdgm5bjq8qe" path="res://cenas/musica_fundo.gd" id="10_s5cfb"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_dtkcs"]
 lightmap_size_hint = Vector2i(14, 21)
@@ -82,6 +84,7 @@ root_node = NodePath("../..")
 libraries/ = SubResource("AnimationLibrary_srya6")
 
 [node name="AudioListener3D" type="AudioListener3D" parent="Player" unique_id=26982816]
+current = true
 
 [node name="esmaga" type="AudioStreamPlayer3D" parent="Player" unique_id=1178288885]
 stream = ExtResource("5_dtkcs")
@@ -92,6 +95,12 @@ max_db = -20.0
 
 [node name="agua_morte" type="AudioStreamPlayer3D" parent="Player" unique_id=2049040700]
 stream = ExtResource("7_v6mw0")
+
+[node name="musica fundo" type="AudioStreamPlayer3D" parent="Player" unique_id=1523346181]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+stream = ExtResource("9_s5cfb")
+max_db = -10.0
+script = ExtResource("10_s5cfb")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1350324725]
 
@@ -112,3 +121,5 @@ label_settings = SubResource("LabelSettings_dmxwg")
 horizontal_alignment = 2
 
 [node name="Pausa" parent="." unique_id=610118416 instance=ExtResource("5_dmxwg")]
+
+[connection signal="finished" from="Player/musica fundo" to="Player/musica fundo" method="_on_finished"]
