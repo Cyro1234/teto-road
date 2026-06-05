@@ -1,10 +1,8 @@
 extends Node3D
 
-# Função chamada quando o botão Jogar for pressionado
-func _on_jogar_pressed() -> void:
+# Só troca de cena quando clica nos botões (Sinais do painel de nó UI)
+func _on_jogar_pressed():
 	get_tree().change_scene_to_file("res://cenas/jogo.tscn")
-	# No futuro você colocará algo como: get_tree().change_scene_to_file("res://cenas/jogo.tscn")
 
-# Função chamada quando o botão Tutorial for pressionado
-func _on_tutorial_pressed() -> void:
+func _on_tutorial_pressed():
 	get_tree().change_scene_to_file("res://cenas/tutorial.tscn")

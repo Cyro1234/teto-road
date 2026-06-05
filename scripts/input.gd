@@ -30,24 +30,28 @@ func _ready():
 	z_inicial = global_position.z
 
 func _physics_process(delta):
+	# Se tá morto, ignora o resto do código (early return)
 	if is_dead: return
 	
+	# lerp_angle gira o modelo suavemente pro lado certo
 	rotation.y = lerp_angle(rotation.y, target_rotation_y, 10 * delta)
 	
 	checar_se_esta_na_baguete()
 	
+	# Lógica complexa pra decidir qual baguete seguir:
 	var baguete_para_mover = baguete_atual if baguete_atual != null else (ultima_baguete_id if is_moving else null)
 	
+	# is_instance_valid tenta ler uma baguete que já foi apagada no mapa infinito
 	if baguete_para_mover != null and is_instance_valid(baguete_para_mover):
 		estava_na_baguete = true
 		if baguete_atual != null:
 			ultima_baguete_id = baguete_atual
 			
-		
 		var objeto_com_velocidade = baguete_para_mover
 		if not objeto_com_velocidade.has_method("get_velocidade") and objeto_com_velocidade.get_parent():
 			objeto_com_velocidade = objeto_com_velocidade.get_parent()
 			
+		# Pega carona na velocidade do objeto
 		if objeto_com_velocidade.has_method("get_velocidade"):
 			var velocidade = objeto_com_velocidade.get_velocidade()
 			var movimento = velocidade * delta
@@ -64,16 +68,19 @@ func _physics_process(delta):
 	if is_moving:
 		global_position = global_position.move_toward(target_position, move_speed * delta)
 		
+		# Se tiver quase colado (< 0.01), crava no lugar pra parar de mover
 		if global_position.distance_to(target_position) < 0.01:
 			global_position = target_position
 			is_moving = false
-			checar_se_esta_na_baguete() # Atualiza o estado imediatamente ao pousar
+			checar_se_esta_na_baguete() 
+			
+			# Atualiza o estado imediatamente ao pousar
 			checar_pontuacao()
 			
 			if estava_na_baguete and baguete_atual == null:
 				alinhar_no_grid()
 			elif baguete_atual != null:
-				# --- VERIFICA SE O NÓ OU SEUS FILHOS SÃO DO GRUPO PICLES ---
+				# VERIFICA SE O NÓ OU SEUS FILHOS SÃO DO GRUPO PICLES 
 				var nodo_picles: Node3D = null
 				if baguete_atual.is_in_group("picles"):
 					nodo_picles = baguete_atual
@@ -91,6 +98,7 @@ func _physics_process(delta):
 		handle_input()
 
 func handle_input():
+	# Vetor que guarda a direção que o player quer ir
 	var direction = Vector3.ZERO
 	
 	if Input.is_action_just_pressed("cima"):
@@ -151,10 +159,12 @@ func handle_input():
 			target_rotation_y = deg_to_rad(0)
 
 func alinhar_no_grid():
+	# Força o boneco a ficar num "quadradinho" certinho se desalinhar
 	global_position.x = round(global_position.x)
 	global_position.z = round(global_position.z)
 	
 	if abs(global_position.y - altura_inicial_y) > 0.01:
+		# create_tween() cria animações (interpolações) direto por código
 		var tween = create_tween()
 		tween.tween_property(self, "global_position:y", altura_inicial_y, 0.15).set_trans(Tween.TRANS_SINE)
 	else:
@@ -165,21 +175,21 @@ func alinhar_no_grid():
 	estava_na_baguete = false
 	ultima_baguete_id = null
 
-# --- NOVA LOGICA BASEADA NA MESMA TOLERÂNCIA DE DISTÂNCIA DO RIO ---
 func checar_se_esta_na_baguete():
 	var melhor_objeto: Node3D = null
-	var menor_distancia := 1.0 # Tolerância de 1.0 unidade (igual ao rio.gd)
+	var menor_distancia := 1.0
 	
 	var candidatos = []
 	candidatos.append_array(get_tree().get_nodes_in_group("baguete"))
 	candidatos.append_array(get_tree().get_nodes_in_group("picles"))
 	
 	for objeto in candidatos:
+		# Ignora o objeto se ele tiver sido deletado da cena
 		if not is_instance_valid(objeto): continue
 		
 		# Verifica se o objeto está na mesma fileira Z (arredondada) que o player
 		if round(objeto.global_position.z) == round(global_position.z):
-			# Mede a distância apenas no eixo X
+			# Mede a distância apenas no eixo X usando abs() pra dar o valor positivo
 			var dist_x = abs(global_position.x - objeto.global_position.x)
 			if dist_x <= menor_distancia:
 				menor_distancia = dist_x
@@ -189,6 +199,7 @@ func checar_se_esta_na_baguete():
 		# Sobe a hierarquia para encontrar o nó com o script de velocidade (PathFollow3D)
 		var atual = melhor_objeto
 		while atual != null:
+			# Garante que ele não vai tentar rodar função onde não existe
 			if atual.has_method("get_velocidade"):
 				baguete_atual = atual
 				return
@@ -198,35 +209,36 @@ func checar_se_esta_na_baguete():
 	else:
 		baguete_atual = null
 
-# Altere a sua função die() antiga por esta versão atualizada:
+# Função de morrer
 func die(tipo_de_morte: String = "carro", por_recuo_tutorial: bool = false):
 	velocity = Vector3.ZERO
 	is_dead = true
 	var tween = create_tween()
 	if tipo_de_morte == "agua":
 		tween.tween_property(self, "global_position:y", global_position.y - 1.2, 0.4)
+		# Faz o Tween rodar as duas animações ao mesmo tempo em vez de uma depois da outra
 		tween.parallel().tween_property(self, "scale", Vector3(0.2, 0.2, 0.2), 0.4)
 		agua_morte.play()
 	else:
-		$".".scale.y = 0.2
+		$".".scale.y = 0.2 # Esmagado!
 		esmaga.play()
 		
-		
-	# --- SISTEMA DE CORREÇÃO AUTOMÁTICA DE MENU ---
-	# Espera meio segundo (tempo da animação de morte) antes de congelar a tela
+	# await cria um cronômetro e pausa a função enquanto o jogo continua rolando. Aprendi que é melhor do que criar Timer no nó!
 	await get_tree().create_timer(1.5).timeout
 	
 	var menu = get_tree().get_first_node_in_group("menu_pausa")
 	if menu:
 		if por_recuo_tutorial:
-			# Ativa o menu com os parâmetros especiais que você pediu
+			# Ativa o menu com os parâmetros especiais
 			menu.exibir_game_over("Jogar", "Não pode voltar tiles se não o jogo acaba")
 		else:
 			# Caso contrário, exibe o menu de derrota padrão do jogo
 			menu.exibir_game_over("Reiniciar", "")
 
 func checar_pontuacao():
+	# Usa abs/math int pra descobrir se foi pra frente no mapa e bater o recorde
 	var passos_dados = int(z_inicial - global_position.z)
 	if passos_dados > pontuacao_maxima:
 		pontuacao_maxima = passos_dados
+		# disparar sinal para a interface com "emit"
 		pontuacao_atualizada.emit(pontuacao_maxima)

@@ -1,39 +1,21 @@
 extends PathFollow3D
 
-# Velocidades limites
-@export var velocidade_minima: float = 4.0
-@export var velocidade_maxima: float = 8.0
+var velocidade := 4.0
+var velocidade_vetor := Vector3.ZERO
 
-var velocidade_atual: float = 4.0
-var velocidade_vetor: Vector3 = Vector3.ZERO
+func _ready():
+	# Começa com uma velocidade aleatória pra não ficar tudo igual
+	velocidade = randf_range(4.0, 8.0)
 
-func _ready() -> void:
-	velocidade_atual = randf_range(
-		velocidade_minima,
-		velocidade_maxima
-	)
+func _physics_process(delta):
+	var pos_antiga = global_position
+	progress += velocidade * delta # Anda no caminho
+	
+	# Gambiarra matemática pra saber a velocidade real do frame e passar pro Player
+	velocidade_vetor = (global_position - pos_antiga) / delta
 
-func _physics_process(delta: float) -> void:
-
-	# salva posição antes de mover
-	var posicao_anterior = global_position
-
-	# move na path
-	progress += velocidade_atual * delta
-
-	# calcula velocidade REAL do frame
-	velocidade_vetor = (
-		global_position - posicao_anterior
-	) / delta
-
-	# quando completar loop sorteia velocidade nova
 	if progress_ratio >= 0.99:
-		velocidade_atual = randf_range(
-			velocidade_minima,
-			velocidade_maxima
-		)
-		
+		velocidade = randf_range(4.0, 8.0) # Sorteia de novo quando dá a volta
 
-# player chama isso
-func get_velocidade() -> Vector3:
+func get_velocidade():
 	return velocidade_vetor

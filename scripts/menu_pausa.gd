@@ -1,13 +1,10 @@
 extends Control
 
-# Usando find_child() o código nunca quebra por erro de caminho (Path)!
 @onready var botao_recomecar: Button = find_child("BotaoRecomecar")
 @onready var botao_menu: Button = find_child("BotaoMenu")
 @onready var vbox: VBoxContainer = find_child("VBoxContainer")
 @onready var sad: AudioStreamPlayer3D = $sad
 @onready var audio_listener_3d: AudioListener3D = $AudioListener3D
-
-
 
 var aviso_label: Label = null
 var transitar_para_jogo := false
@@ -39,23 +36,23 @@ func pausar_jogo() -> void:
 	transitar_para_jogo = false
 	
 	if aviso_label and is_instance_valid(aviso_label):
+		# Sempre que crio um Label, preciso dar queue_free pra limpar da memória dps
 		aviso_label.queue_free()
 		aviso_label = null
 		
 	show()
-	get_tree().paused = true
+	get_tree().paused = true # Pausa toda a árvore física do jogo
 
 func despausar_jogo() -> void:
 	hide()
 	get_tree().paused = false
 
-# --- CONFIGURA A TELA DE GAME OVER / FIM DE JOGO ---
 func exibir_game_over(texto_botao: String = "Reiniciar", texto_aviso: String = "") -> void:
+	# Traz os ouvidos da engine pra cá pro som ficar no volume certo (listener)
 	audio_listener_3d.make_current()
 	sad.play()
 	botao_recomecar.text = texto_botao
 	
-	# --- CORREÇÃO: Ativa a transição para o jogo se o texto do botão for "Jogar" ---
 	transitar_para_jogo = (texto_botao == "Jogar")
 	
 	# Limpa avisos antigos se houver
@@ -63,23 +60,23 @@ func exibir_game_over(texto_botao: String = "Reiniciar", texto_aviso: String = "
 		aviso_label.queue_free()
 		aviso_label = null
 		
-	# Se um aviso foi enviado, cria um Label de texto dinamicamente na hora
+	# Se um aviso foi enviado, cria um Label de texto dinamicamente na hora via código
 	if texto_aviso != "":
 		aviso_label = Label.new()
 		aviso_label.text = texto_aviso
 		aviso_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		vbox.add_child(aviso_label)
+		# move_child com 0 coloca o nó novo lá no topinho da tela/caixa
 		vbox.move_child(aviso_label, 0) # Move para o topo do menu
 		
 	show()
 	get_tree().paused = true # Pausa o jogo
 
 func _on_recomecar_pressed() -> void:
-	get_tree().paused = false # Despausa o motor do jogo
+	get_tree().paused = false # Despausa o motor do jogo ANTES de carregar a fase
 	
-	# --- CORREÇÃO: Decide para onde enviar o jogador ao clicar ---
 	if transitar_para_jogo:
-		get_tree().change_scene_to_file("res://cenas/jogo.tscn") # Vai direto para a ação!
+		get_tree().change_scene_to_file("res://cenas/jogo.tscn")
 	else:
 		get_tree().reload_current_scene() # Reinicia a fase atual normalmente
 

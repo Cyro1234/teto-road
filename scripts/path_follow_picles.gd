@@ -6,6 +6,7 @@ func _ready() -> void:
 	jump_to_random_position()
 
 func jump_to_random_position():
+	# Coloca o picles em um lugar aleatorio
 	progress = randi() % 5
 
 func get_velocidade() -> Vector3:

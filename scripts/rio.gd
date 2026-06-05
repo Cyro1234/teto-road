@@ -18,15 +18,13 @@ func _on_body_exited(body: Node3D) -> void:
 		player_no_rio = null
 
 func _process(_delta: float) -> void:
-
 	if player_no_rio:
-
+		# Chama uma função customizada pra ver se tá pisando na baguete
 		var em_baguete = esta_na_baguete(player_no_rio)
 
 		# entrou na baguete
 		if em_baguete and baguete_atual == null:
 			baguete_atual = pegar_baguete(player_no_rio)
-
 
 		# saiu da baguete
 		if not em_baguete:
@@ -34,25 +32,25 @@ func _process(_delta: float) -> void:
 
 	if player_no_rio and not player_no_rio.is_dead:
 		if not player_no_rio.is_moving:
-			# --- TRAVA DE SEGURANÇA CONTRA OVERLAP ---
-			# O jogador só morre se a linha Z dele for idêntica à linha Z deste rio!
+			# O jogador só morre se a linha Z dele for idêntica à linha Z deste rio
 			if round(player_no_rio.global_position.z) == round(global_position.z):
 				if not esta_na_baguete(player_no_rio):
 					player_no_rio.die("agua")
 				
 func pegar_baguete(player: CharacterBody3D) -> Node3D:
+	# get_overlapping_bodies pega TUDO que tá batendo nessa área da água
 	var corpos_no_rio = get_overlapping_bodies()
 	var areas_no_rio = get_overlapping_areas()
-
 	var tudo_no_rio = []
 	tudo_no_rio.append_array(corpos_no_rio)
 	tudo_no_rio.append_array(areas_no_rio)
 	
-	
-	
 	for objeto in tudo_no_rio:
+		# get_parent() é pra pegar o "Pai" do objeto de colisão caso a lógica de grupo esteja nele
 		if objeto.is_in_group("baguete") or (objeto.get_parent() and objeto.get_parent().is_in_group("baguete")) or objeto.is_in_group("picles") or (objeto.get_parent() and objeto.get_parent().is_in_group("picles")):
 			agua.play()
+			
+			# X e Z porque a altura Y não importa pra calcular a distância
 			var dist_player = Vector2(player.global_position.x, player.global_position.z)
 			var dist_baguete = Vector2(objeto.global_position.x, objeto.global_position.z)
 			var distancia = dist_player.distance_to(dist_baguete)
@@ -71,7 +69,6 @@ func esta_na_baguete(player: CharacterBody3D) -> bool:
 	var tudo_no_rio = []
 	tudo_no_rio.append_array(corpos_no_rio)
 	tudo_no_rio.append_array(areas_no_rio)
-	
 	
 	for objeto in tudo_no_rio:
 		if objeto.is_in_group("baguete") or (objeto.get_parent() and objeto.get_parent().is_in_group("baguete")) or objeto.is_in_group("picles") or (objeto.get_parent() and objeto.get_parent().is_in_group("picles")):
